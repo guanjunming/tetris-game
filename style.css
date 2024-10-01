@@ -1,0 +1,39 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(0deg, #6139a5 0%, #4570df 100%);
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.game-board {
+  border: 5px solid black;
+  background-color: #213224;
+  position: relative;
+}
+
+.board-grid {
+  display: grid;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.block-container {
+  position: relative;
+}
+
+.block-grid {
+  border: 1px solid rgba(161, 161, 161, 0.1);
+}
+
+.block {
+  position: absolute;
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5);
+}
