@@ -1,11 +1,11 @@
 import { BLOCK_SIZE, TETROMINOS } from "./constants.js";
 
 class Tetromino {
-  constructor(type, board) {
+  constructor(board, name, posX = 0, posY = 0) {
     this.board = board;
-    this.type = type;
-    this.shape = TETROMINOS[type];
-    this.position = { x: 0, y: 0 };
+    this.name = name;
+    this.shape = TETROMINOS[name];
+    this.position = { x: posX, y: posY };
     this.blocks = [];
   }
 
@@ -14,7 +14,7 @@ class Tetromino {
       for (let x = 0; x < this.shape[y].length; x++) {
         if (this.shape[y][x]) {
           const block = document.createElement("div");
-          block.classList.add("block", `block-${this.type}`);
+          block.classList.add("block", `block-${this.name}`);
           block.style.width = `${BLOCK_SIZE}px`;
           block.style.height = `${BLOCK_SIZE}px`;
           block.style.top = `${(this.position.y + y) * BLOCK_SIZE}px`;
@@ -47,6 +47,8 @@ class Tetromino {
       this.position.y += 1;
       this.remove();
       this.draw();
+    } else {
+      this.board.lockTetromino(this);
     }
   }
 }

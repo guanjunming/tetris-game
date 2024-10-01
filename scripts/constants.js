@@ -45,3 +45,6 @@ export const TETROMINOS = {
     [0, 0, 0],
   ],
 };
+
+/** Tetromino generator sequence */
+export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];

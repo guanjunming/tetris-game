@@ -1,7 +1,10 @@
-import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE } from "./constants.js";
+import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS } from "./constants.js";
+import Tetromino from "./tetromino.js";
 
-export class Board {
-  constructor() {
+class Board {
+  constructor(game, randomGenerator) {
+    this.game = game;
+    this.randomGenerator = randomGenerator;
     this.createGrid();
     this.setupPlayfield();
   }
@@ -38,10 +41,21 @@ export class Board {
       }
     }
     this.blockContainer.innerHTML = "";
+    this.randomGenerator.resetSequence();
   }
 
   addBlock(block) {
     this.blockContainer.appendChild(block);
+  }
+
+  spawnTetromino() {
+    const name = this.randomGenerator.getNextPiece();
+    // I and O start centered, others start center-left
+    const col = BOARD_WIDTH / 2 - Math.ceil(TETROMINOS[name][0].length / 2);
+    const row = 0;
+    const tetromino = new Tetromino(this, name, col, row);
+    tetromino.draw();
+    this.game.currentTetromino = tetromino;
   }
 
   isValidMove(tetromino, xOffset, yOffset) {
@@ -58,6 +72,20 @@ export class Board {
       }
     }
     return true;
+  }
+
+  lockTetromino(tetromino) {
+    for (let y = 0; y < tetromino.shape.length; y++) {
+      for (let x = 0; x < tetromino.shape[y].length; x++) {
+        if (tetromino.shape[y][x]) {
+          const row = tetromino.position.y + y;
+          const col = tetromino.position.x + x;
+          this.playfield[row][col] = 1;
+        }
+      }
+    }
+
+    this.spawnTetromino();
   }
 }
 

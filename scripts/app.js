@@ -1,5 +1,28 @@
 import Board from "./board.js";
-import Tetromino from "./tetromino.js";
+import RandomGenerator from "./randomGenerator.js";
+
+class TetrisGame {
+  constructor() {
+    this.randomGenerator = new RandomGenerator(this);
+    this.board = new Board(this, this.randomGenerator);
+    this.tetromino = null;
+  }
+
+  startGame() {
+    this.board.spawnTetromino();
+  }
+
+  get currentTetromino() {
+    return this.tetromino;
+  }
+
+  set currentTetromino(tetromino) {
+    this.tetromino = tetromino;
+  }
+}
+
+const game = new TetrisGame();
+game.startGame();
 
 window.addEventListener("keyup", handleKeyPress);
 window.addEventListener("keydown", handleKeyPress);
@@ -8,30 +31,26 @@ function handleKeyPress(event) {
   if (event.type === "keydown") {
     switch (event.key) {
       case "ArrowLeft":
-        if (currentTetromino) {
-          currentTetromino.move(-1);
+        if (game.currentTetromino) {
+          game.currentTetromino.move(-1);
         }
         break;
       case "ArrowRight":
-        if (currentTetromino) {
-          currentTetromino.move(1);
+        if (game.currentTetromino) {
+          game.currentTetromino.move(1);
         }
         break;
       case "ArrowDown":
-        if (currentTetromino) {
-          currentTetromino.drop();
+        if (game.currentTetromino) {
+          game.currentTetromino.drop();
         }
     }
   } else {
     switch (event.key) {
       case "r":
-        board.resetBoard();
+        game.board.resetBoard();
+        game.startGame();
         break;
     }
   }
 }
-
-const board = new Board();
-
-const currentTetromino = new Tetromino("T", board);
-currentTetromino.draw();
