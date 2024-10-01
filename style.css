@@ -37,3 +37,31 @@ body {
   position: absolute;
   box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5);
 }
+
+.block-I {
+  background-color: cyan;
+}
+
+.block-J {
+  background-color: blue;
+}
+
+.block-L {
+  background-color: orange;
+}
+
+.block-O {
+  background-color: yellow;
+}
+
+.block-S {
+  background-color: blue;
+}
+
+.block-T {
+  background-color: purple;
+}
+
+.block-Z {
+  background-color: red;
+}
