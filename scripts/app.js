@@ -51,19 +51,24 @@ function handleKeyPress(event) {
   if (event.type === "keydown") {
     switch (event.key) {
       case "ArrowLeft":
-        if (game.currentTetromino) {
-          game.currentTetromino.move(-1);
-        }
+        game.currentTetromino?.move(-1);
         break;
       case "ArrowRight":
-        if (game.currentTetromino) {
-          game.currentTetromino.move(1);
-        }
+        game.currentTetromino?.move(1);
         break;
       case "ArrowDown":
-        if (game.currentTetromino) {
-          game.currentTetromino.drop();
+        game.currentTetromino?.drop();
+        break;
+      case "z":
+        if (!event.repeat) {
+          game.currentTetromino?.rotate(-1);
         }
+        break;
+      case "x":
+        if (!event.repeat) {
+          game.currentTetromino?.rotate(1);
+        }
+        break;
     }
   } else {
     switch (event.key) {

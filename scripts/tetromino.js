@@ -39,21 +39,59 @@ class Tetromino {
     this.blocks.length = 0;
   }
 
+  redraw() {
+    this.remove();
+    this.draw();
+  }
+
   move(xOffset) {
     if (this.board.isValidMove(this, xOffset, 0)) {
       this.position.x += xOffset;
-      this.remove();
-      this.draw();
+      this.redraw();
     }
   }
 
   drop() {
     if (this.board.isValidMove(this, 0, 1)) {
       this.position.y += 1;
-      this.remove();
-      this.draw();
+      this.redraw();
     } else {
       this.board.lockTetromino(this);
+    }
+  }
+
+  // https://stackoverflow.com/questions/42519/how-do-you-rotate-a-two-dimensional-array
+  getRotatedShape(dir) {
+    const n = this.shape.length;
+    const rotatedShape = [];
+
+    for (let i = 0; i < n; i++) {
+      rotatedShape.push([]);
+    }
+
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        // rotate clockwise 90 deg
+        if (dir > 0) {
+          // transpose and reverse rows
+          rotatedShape[y][x] = this.shape[n - x - 1][y];
+        }
+        // rotate anti-clockwise 90 deg
+        else {
+          // transpose and reverse columns
+          rotatedShape[y][x] = this.shape[x][n - y - 1];
+        }
+      }
+    }
+
+    return rotatedShape;
+  }
+
+  rotate(dir) {
+    const rotatedShape = this.getRotatedShape(dir);
+    if (this.board.isValidRotation(this, rotatedShape)) {
+      this.shape = rotatedShape;
+      this.redraw();
     }
   }
 }

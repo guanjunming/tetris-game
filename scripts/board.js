@@ -64,14 +64,33 @@ class Board {
     this.game.currentTetromino = tetromino;
   }
 
+  collide(row, col) {
+    // check exceed board boundary or overlap with blocks in playfield
+    return row >= BOARD_HEIGHT || col < 0 || col >= BOARD_WIDTH || this.playfield[row][col];
+  }
+
   isValidMove(tetromino, xOffset, yOffset) {
     for (let y = 0; y < tetromino.shape.length; y++) {
       for (let x = 0; x < tetromino.shape[y].length; x++) {
         if (tetromino.shape[y][x]) {
           const row = tetromino.position.y + y + yOffset;
           const col = tetromino.position.x + x + xOffset;
-          // check within board boundary and not overlap with blocks in playfield
-          if (row >= BOARD_HEIGHT || col < 0 || col >= BOARD_WIDTH || this.playfield[row][col]) {
+          if (this.collide(row, col)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  isValidRotation(tetromino, rotatedShape) {
+    for (let y = 0; y < rotatedShape.length; y++) {
+      for (let x = 0; x < rotatedShape[y].length; x++) {
+        if (rotatedShape[y][x]) {
+          const row = tetromino.position.y + y;
+          const col = tetromino.position.x + x;
+          if (this.collide(row, col)) {
             return false;
           }
         }
