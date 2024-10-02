@@ -48,3 +48,6 @@ export const TETROMINOS = {
 
 /** Tetromino generator sequence */
 export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
+
+/** Game update interval in milliseconds */
+export const UPDATE_INTERVAL = 1000;

@@ -2,6 +2,12 @@ import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS } from "./constants.j
 import Tetromino from "./tetromino.js";
 
 class Board {
+  game;
+  randomGenerator;
+  boardGrid;
+  blockContainer;
+  playfield = [];
+
   constructor(game, randomGenerator) {
     this.game = game;
     this.randomGenerator = randomGenerator;

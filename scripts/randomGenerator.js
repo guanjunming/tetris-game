@@ -2,9 +2,11 @@ import { SEQUENCE } from "./constants.js";
 import { getRandomInt } from "./utils.js";
 
 class RandomGenerator {
+  game;
+  currentSequence = [];
+
   constructor(game) {
     this.game = game;
-    this.currentSequence = [];
   }
 
   // generate sequence of 7 pieces permuted randomly

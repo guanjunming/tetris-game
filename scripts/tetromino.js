@@ -1,12 +1,17 @@
 import { BLOCK_SIZE, TETROMINOS } from "./constants.js";
 
 class Tetromino {
+  board;
+  name;
+  shape;
+  position;
+  blocks = [];
+
   constructor(board, name, posX = 0, posY = 0) {
     this.board = board;
     this.name = name;
     this.shape = TETROMINOS[name];
     this.position = { x: posX, y: posY };
-    this.blocks = [];
   }
 
   draw() {
