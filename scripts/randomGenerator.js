@@ -1,13 +1,8 @@
-import { SEQUENCE } from "./constants.js";
+import { NEXT_PIECE_COUNT, SEQUENCE } from "./constants.js";
 import { getRandomInt } from "./utils.js";
 
 class RandomGenerator {
-  game;
   currentSequence = [];
-
-  constructor(game) {
-    this.game = game;
-  }
 
   // generate sequence of 7 pieces permuted randomly
   generateSequence() {
@@ -20,10 +15,10 @@ class RandomGenerator {
   }
 
   getNextPiece() {
-    if (this.currentSequence.length === 0) {
+    if (this.currentSequence.length <= NEXT_PIECE_COUNT) {
       this.generateSequence();
     }
-    return this.currentSequence.pop();
+    return this.currentSequence.shift();
   }
 
   resetSequence() {

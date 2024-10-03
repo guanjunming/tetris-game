@@ -28,16 +28,17 @@ class Tetromino {
           block.setAttribute("id", `x${this.position.x + x}-y${this.position.y + y}`);
           this.blocks.push(block);
           this.board.addBlock(block);
-        } else {
-          const block = document.createElement("div");
-          block.classList.add("block-outline");
-          block.style.width = `${BLOCK_SIZE}px`;
-          block.style.height = `${BLOCK_SIZE}px`;
-          block.style.top = `${(this.position.y + y) * BLOCK_SIZE}px`;
-          block.style.left = `${(this.position.x + x) * BLOCK_SIZE}px`;
-          this.blocks.push(block);
-          this.board.addBlock(block);
         }
+        // } else {
+        //   const block = document.createElement("div");
+        //   block.classList.add("block-outline");
+        //   block.style.width = `${BLOCK_SIZE}px`;
+        //   block.style.height = `${BLOCK_SIZE}px`;
+        //   block.style.top = `${(this.position.y + y) * BLOCK_SIZE}px`;
+        //   block.style.left = `${(this.position.x + x) * BLOCK_SIZE}px`;
+        //   this.blocks.push(block);
+        //   this.board.addBlock(block);
+        // }
       }
     }
   }
@@ -58,7 +59,7 @@ class Tetromino {
     if (!this.board.checkCollision(this, xOffset, 0)) {
       this.position.x += xOffset;
       this.redraw();
-      console.log(`position: x${this.position.x},y${this.position.y}`);
+      //console.log(`position: x${this.position.x},y${this.position.y}`);
     }
   }
 
@@ -66,7 +67,7 @@ class Tetromino {
     if (!this.board.checkCollision(this, 0, 1)) {
       this.position.y += 1;
       this.redraw();
-      console.log(`position: x${this.position.x},y${this.position.y}`);
+      //console.log(`position: x${this.position.x},y${this.position.y}`);
     } else {
       this.board.lockTetromino(this);
     }
@@ -76,7 +77,7 @@ class Tetromino {
     if (!this.board.checkCollision(this, 0, -1)) {
       this.position.y -= 1;
       this.redraw();
-      console.log(`position: x${this.position.x},y${this.position.y}`);
+      //console.log(`position: x${this.position.x},y${this.position.y}`);
     }
   }
 
@@ -120,12 +121,13 @@ class Tetromino {
 
     let rotated = false;
     for (let i = 0; i < wallKickOffsets.length; i++) {
-      const [xOffset, yOffset] = wallKickOffsets[i];
-      // -ve yOffset to invert the direction of y in dataset as y=0 is at top of grid
-      if (!this.board.checkCollision(this, xOffset, -yOffset)) {
-        console.log("success: " + i);
+      let [xOffset, yOffset] = wallKickOffsets[i];
+      // invert the direction of y in dataset as y=0 is at top of grid
+      yOffset *= -1;
+
+      if (!this.board.checkCollision(this, xOffset, yOffset)) {
         this.position.x += xOffset;
-        this.position.y += -yOffset;
+        this.position.y += yOffset;
         this.rotation = newRotation;
         rotated = true;
         break;
@@ -137,7 +139,7 @@ class Tetromino {
     } else {
       this.shape = originalShape;
     }
-    console.log(`position: x${this.position.x},y${this.position.y}`);
+    //console.log(`position: x${this.position.x},y${this.position.y}`);
   }
 }
 

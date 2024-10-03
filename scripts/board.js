@@ -1,5 +1,6 @@
 import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS } from "./constants.js";
 import Tetromino from "./tetromino.js";
+import RandomGenerator from "./randomGenerator.js";
 
 class Board {
   game;
@@ -8,9 +9,9 @@ class Board {
   blockContainer;
   playfield = [];
 
-  constructor(game, randomGenerator) {
+  constructor(game) {
     this.game = game;
-    this.randomGenerator = randomGenerator;
+    this.randomGenerator = new RandomGenerator();
     this.createGrid();
     this.setupPlayfield();
   }
@@ -64,11 +65,6 @@ class Board {
     this.game.currentTetromino = tetromino;
   }
 
-  collide(row, col) {
-    // check exceed board boundary or overlap with blocks in playfield
-    return row >= BOARD_HEIGHT || col < 0 || col >= BOARD_WIDTH || this.playfield[row][col];
-  }
-
   checkCollision(tetromino, xOffset, yOffset) {
     const row = tetromino.position.y + yOffset;
     const col = tetromino.position.x + xOffset;
@@ -78,7 +74,6 @@ class Board {
         if (tetromino.shape[y][x]) {
           const currRow = row + y;
           const currCol = col + x;
-          console.log("currRow: " + currRow);
           if (
             // check out of bound
             currRow >= BOARD_HEIGHT ||

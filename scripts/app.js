@@ -1,16 +1,13 @@
 import Board from "./board.js";
 import { UPDATE_INTERVAL } from "./constants.js";
-import RandomGenerator from "./randomGenerator.js";
 
 class TetrisGame {
-  randomGenerator;
   board;
   tetromino;
   intervalId;
 
   constructor() {
-    this.randomGenerator = new RandomGenerator(this);
-    this.board = new Board(this, this.randomGenerator);
+    this.board = new Board(this);
   }
 
   get currentTetromino() {
@@ -23,7 +20,7 @@ class TetrisGame {
 
   startGame() {
     this.board.spawnTetromino();
-    //this.startInterval(UPDATE_INTERVAL);
+    this.startInterval(UPDATE_INTERVAL);
   }
 
   update() {

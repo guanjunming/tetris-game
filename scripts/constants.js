@@ -7,6 +7,15 @@ export const BOARD_HEIGHT = 20;
 /** Block size in pixels */
 export const BLOCK_SIZE = 30;
 
+/** Game update interval in milliseconds */
+export const UPDATE_INTERVAL = 1000;
+
+/** Number of next pieces */
+export const NEXT_PIECE_COUNT = 5;
+
+/** Tetromino generator sequence */
+export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
+
 /** Tetromino shapes */
 export const TETROMINOS = {
   I: [
@@ -45,12 +54,6 @@ export const TETROMINOS = {
     [0, 0, 0],
   ],
 };
-
-/** Tetromino generator sequence */
-export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
-
-/** Game update interval in milliseconds */
-export const UPDATE_INTERVAL = 1000;
 
 /**
  * Wall kick translation offset data
