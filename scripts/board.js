@@ -69,34 +69,30 @@ class Board {
     return row >= BOARD_HEIGHT || col < 0 || col >= BOARD_WIDTH || this.playfield[row][col];
   }
 
-  isValidMove(tetromino, xOffset, yOffset) {
+  checkCollision(tetromino, xOffset, yOffset) {
+    const row = tetromino.position.y + yOffset;
+    const col = tetromino.position.x + xOffset;
+
     for (let y = 0; y < tetromino.shape.length; y++) {
       for (let x = 0; x < tetromino.shape[y].length; x++) {
         if (tetromino.shape[y][x]) {
-          const row = tetromino.position.y + y + yOffset;
-          const col = tetromino.position.x + x + xOffset;
-          if (this.collide(row, col)) {
-            return false;
+          const currRow = row + y;
+          const currCol = col + x;
+          console.log("currRow: " + currRow);
+          if (
+            // check out of bound
+            currRow >= BOARD_HEIGHT ||
+            currCol < 0 ||
+            currCol >= BOARD_WIDTH ||
+            // check overlap with other blocks
+            (this.playfield[currRow] && this.playfield[currRow][currCol])
+          ) {
+            return true;
           }
         }
       }
     }
-    return true;
-  }
-
-  isValidRotation(tetromino, rotatedShape) {
-    for (let y = 0; y < rotatedShape.length; y++) {
-      for (let x = 0; x < rotatedShape[y].length; x++) {
-        if (rotatedShape[y][x]) {
-          const row = tetromino.position.y + y;
-          const col = tetromino.position.x + x;
-          if (this.collide(row, col)) {
-            return false;
-          }
-        }
-      }
-    }
-    return true;
+    return false;
   }
 
   lockTetromino(tetromino) {
@@ -105,7 +101,7 @@ class Board {
         if (tetromino.shape[y][x]) {
           const row = tetromino.position.y + y;
           const col = tetromino.position.x + x;
-          this.playfield[row][col] = 1;
+          this.playfield[row][col] = tetromino.name;
         }
       }
     }

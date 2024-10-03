@@ -40,6 +40,11 @@ body {
   border-style: outset;
 }
 
+.block-outline {
+  position: absolute;
+  border: 1px solid black;
+}
+
 /* TODO: set border color */
 .block-I {
   background-color: cyan;

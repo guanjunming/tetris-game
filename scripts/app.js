@@ -23,7 +23,7 @@ class TetrisGame {
 
   startGame() {
     this.board.spawnTetromino();
-    this.startInterval(UPDATE_INTERVAL);
+    //this.startInterval(UPDATE_INTERVAL);
   }
 
   update() {
@@ -58,6 +58,9 @@ function handleKeyPress(event) {
         break;
       case "ArrowDown":
         game.currentTetromino?.drop();
+        break;
+      case "ArrowUp":
+        game.currentTetromino?.up();
         break;
       case "z":
         if (!event.repeat) {
