@@ -1,4 +1,4 @@
-import { BLOCK_SIZE, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
+import { BLOCK_SIZE, LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
 
 class Tetromino {
   board;
@@ -7,6 +7,9 @@ class Tetromino {
   position;
   rotation = 0;
   blocks = [];
+  lockTimerId = 0;
+  moveCounter = 0;
+  pendingLock = false;
 
   constructor(board, name, posX = 0, posY = 0) {
     this.board = board;
@@ -55,11 +58,51 @@ class Tetromino {
     this.draw();
   }
 
-  move(xOffset) {
-    if (!this.board.checkCollision(this, xOffset, 0)) {
-      this.position.x += xOffset;
-      this.redraw();
-      //console.log(`position: x${this.position.x},y${this.position.y}`);
+  lock() {
+    this.moveCounter = 0;
+    this.board.lockTetromino(this);
+  }
+
+  setLockTimer() {
+    this.lockTimerId = setTimeout(() => {
+      this.lockTimerId = 0;
+      this.lock();
+    }, LOCK_DELAY);
+  }
+
+  clearLockTimer() {
+    if (this.lockTimerId) {
+      clearTimeout(this.lockTimerId);
+      this.lockTimerId = 0;
+    }
+  }
+
+  resetLockTimer() {
+    this.clearLockTimer();
+    this.moveCounter++;
+    if (this.moveCounter >= MOVE_LIMIT) {
+      this.lock();
+    } else {
+      this.setLockTimer();
+    }
+  }
+
+  tryLock() {
+    if (this.board.checkCollision(this, 0, 1)) {
+      // start lock timer if not already started
+      if (!this.pendingLock) {
+        this.pendingLock = true;
+        this.setLockTimer();
+        this.board.enableGameTimer(false);
+      } else {
+        this.resetLockTimer();
+      }
+    } else {
+      this.clearLockTimer();
+      this.board.enableGameTimer(true);
+      if (this.pendingLock) {
+        this.moveCounter++;
+      }
     }
   }
 
@@ -67,9 +110,17 @@ class Tetromino {
     if (!this.board.checkCollision(this, 0, 1)) {
       this.position.y += 1;
       this.redraw();
-      //console.log(`position: x${this.position.x},y${this.position.y}`);
-    } else {
-      this.board.lockTetromino(this);
+
+      this.clearLockTimer();
+      this.moveCounter = 0;
+      this.pendingLock = false;
+
+      // cannot drop anymore, start lock timer
+      if (this.board.checkCollision(this, 0, 1)) {
+        this.pendingLock = true;
+        this.setLockTimer();
+        this.board.enableGameTimer(false);
+      }
     }
   }
 
@@ -77,7 +128,14 @@ class Tetromino {
     if (!this.board.checkCollision(this, 0, -1)) {
       this.position.y -= 1;
       this.redraw();
-      //console.log(`position: x${this.position.x},y${this.position.y}`);
+    }
+  }
+
+  move(xOffset) {
+    if (!this.board.checkCollision(this, xOffset, 0)) {
+      this.position.x += xOffset;
+      this.redraw();
+      this.tryLock();
     }
   }
 
@@ -109,37 +167,39 @@ class Tetromino {
   }
 
   rotate(dir) {
-    if (this.name === "O") return;
-
     const originalShape = this.shape;
     this.shape = this.getRotatedShape(dir);
-
-    const newRotation = (this.rotation + dir + 4) % 4; // +4 to make -1 -> 3
-
-    const dataset = this.name === "I" ? WALL_KICK_OFFSET.I : WALL_KICK_OFFSET.JLSTZ;
-    const wallKickOffsets = dataset[this.rotation][newRotation];
-
     let rotated = false;
-    for (let i = 0; i < wallKickOffsets.length; i++) {
-      let [xOffset, yOffset] = wallKickOffsets[i];
-      // invert the direction of y in dataset as y=0 is at top of grid
-      yOffset *= -1;
 
-      if (!this.board.checkCollision(this, xOffset, yOffset)) {
-        this.position.x += xOffset;
-        this.position.y += yOffset;
-        this.rotation = newRotation;
-        rotated = true;
-        break;
+    if (this.name === "O") {
+      rotated = true;
+    } else {
+      const newRotation = (this.rotation + dir + 4) % 4; // +4 to make -1 -> 3
+
+      const dataset = this.name === "I" ? WALL_KICK_OFFSET.I : WALL_KICK_OFFSET.JLSTZ;
+      const wallKickOffsets = dataset[this.rotation][newRotation];
+
+      for (let i = 0; i < wallKickOffsets.length; i++) {
+        let [xOffset, yOffset] = wallKickOffsets[i];
+        // invert the direction of y in dataset as y=0 is at top of grid
+        yOffset *= -1;
+
+        if (!this.board.checkCollision(this, xOffset, yOffset)) {
+          this.position.x += xOffset;
+          this.position.y += yOffset;
+          this.rotation = newRotation;
+          rotated = true;
+          break;
+        }
       }
     }
 
     if (rotated) {
       this.redraw();
+      this.tryLock();
     } else {
       this.shape = originalShape;
     }
-    //console.log(`position: x${this.position.x},y${this.position.y}`);
   }
 }
 

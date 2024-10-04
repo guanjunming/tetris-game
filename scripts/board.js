@@ -102,6 +102,15 @@ class Board {
     }
 
     this.spawnTetromino();
+    this.enableGameTimer(true);
+  }
+
+  enableGameTimer(enable) {
+    if (enable) {
+      this.game.startGameTimer();
+    } else {
+      this.game.stopGameTimer();
+    }
   }
 }
 

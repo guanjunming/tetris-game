@@ -4,7 +4,7 @@ import { UPDATE_INTERVAL } from "./constants.js";
 class TetrisGame {
   board;
   tetromino;
-  intervalId;
+  intervalId = 0;
 
   constructor() {
     this.board = new Board(this);
@@ -20,22 +20,22 @@ class TetrisGame {
 
   startGame() {
     this.board.spawnTetromino();
-    this.startInterval(UPDATE_INTERVAL);
+    this.startGameTimer();
   }
 
   update() {
-    if (!this.currentTetromino) {
-      return;
-    }
-
-    this.tetromino.drop();
+    this.currentTetromino?.drop();
   }
 
-  startInterval(delay) {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+  startGameTimer() {
+    if (this.intervalId === 0) {
+      this.intervalId = setInterval(() => this.update(), UPDATE_INTERVAL);
     }
-    this.intervalId = setInterval(() => this.update(), delay);
+  }
+
+  stopGameTimer() {
+    clearInterval(this.intervalId);
+    this.intervalId = 0;
   }
 }
 

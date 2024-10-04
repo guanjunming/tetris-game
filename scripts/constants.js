@@ -13,6 +13,12 @@ export const UPDATE_INTERVAL = 1000;
 /** Number of next pieces */
 export const NEXT_PIECE_COUNT = 5;
 
+/** Lock delay in milliseconds */
+export const LOCK_DELAY = 500;
+
+/** Number of moves/rotations before lock */
+export const MOVE_LIMIT = 15;
+
 /** Tetromino generator sequence */
 export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
 
