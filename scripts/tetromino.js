@@ -1,4 +1,5 @@
-import { BLOCK_SIZE, LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
+import { LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
+import { createBlock } from "./utils.js";
 
 class Tetromino {
   board;
@@ -22,13 +23,7 @@ class Tetromino {
     for (let y = 0; y < this.shape.length; y++) {
       for (let x = 0; x < this.shape[y].length; x++) {
         if (this.shape[y][x]) {
-          const block = document.createElement("div");
-          block.classList.add("block", `block-${this.name}`);
-          block.style.width = `${BLOCK_SIZE}px`;
-          block.style.height = `${BLOCK_SIZE}px`;
-          block.style.top = `${(this.position.y + y) * BLOCK_SIZE}px`;
-          block.style.left = `${(this.position.x + x) * BLOCK_SIZE}px`;
-          block.setAttribute("id", `x${this.position.x + x}-y${this.position.y + y}`);
+          const block = createBlock(this.name, this.position.y + y, this.position.x + x);
           this.blocks.push(block);
           this.board.addBlock(block);
         }
