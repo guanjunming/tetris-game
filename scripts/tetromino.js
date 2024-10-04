@@ -201,6 +201,19 @@ class Tetromino {
       this.shape = originalShape;
     }
   }
+
+  hardDrop() {
+    this.board.enableGameTimer(false);
+    this.clearLockTimer();
+    this.pendingLock = false;
+
+    while (!this.board.checkCollision(this, 0, 1)) {
+      this.position.y += 1;
+    }
+
+    this.redraw();
+    this.lock();
+  }
 }
 
 export default Tetromino;

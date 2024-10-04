@@ -46,7 +46,7 @@ window.addEventListener("keydown", handleKeyPress);
 
 function handleKeyPress(event) {
   if (event.type === "keydown") {
-    switch (event.key) {
+    switch (event.code) {
       case "ArrowLeft":
         game.currentTetromino?.move(-1);
         break;
@@ -59,23 +59,28 @@ function handleKeyPress(event) {
       case "ArrowUp":
         game.currentTetromino?.up();
         break;
-      case "z":
+      case "KeyZ":
         if (!event.repeat) {
           game.currentTetromino?.rotate(-1);
         }
         break;
-      case "x":
+      case "KeyX":
         if (!event.repeat) {
           game.currentTetromino?.rotate(1);
         }
         break;
+      case "Space":
+        if (!event.repeat) {
+          game.currentTetromino?.hardDrop();
+        }
+        break;
     }
   } else {
-    switch (event.key) {
-      case "t":
+    switch (event.code) {
+      case "KeyT":
         game.startGame();
         break;
-      case "r":
+      case "KeyR":
         game.board.resetBoard();
         game.startGame();
         break;
