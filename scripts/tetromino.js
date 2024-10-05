@@ -22,21 +22,11 @@ class Tetromino {
   draw() {
     for (let y = 0; y < this.shape.length; y++) {
       for (let x = 0; x < this.shape[y].length; x++) {
-        if (this.shape[y][x]) {
+        if (this.shape[y][x] && this.position.y + y >= 0) {
           const block = createBlock(this.name, this.position.y + y, this.position.x + x);
           this.blocks.push(block);
           this.board.addBlock(block);
         }
-        // } else {
-        //   const block = document.createElement("div");
-        //   block.classList.add("block-outline");
-        //   block.style.width = `${BLOCK_SIZE}px`;
-        //   block.style.height = `${BLOCK_SIZE}px`;
-        //   block.style.top = `${(this.position.y + y) * BLOCK_SIZE}px`;
-        //   block.style.left = `${(this.position.x + x) * BLOCK_SIZE}px`;
-        //   this.blocks.push(block);
-        //   this.board.addBlock(block);
-        // }
       }
     }
   }
@@ -116,13 +106,6 @@ class Tetromino {
         this.setLockTimer();
         this.board.enableGameTimer(false);
       }
-    }
-  }
-
-  up() {
-    if (!this.board.checkCollision(this, 0, -1)) {
-      this.position.y -= 1;
-      this.redraw();
     }
   }
 

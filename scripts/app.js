@@ -6,12 +6,15 @@ class TetrisGame {
   board;
   tetromino;
   gameTimer;
-  pauseMenu;
+  pausePopup;
+  isGameOver = false;
+  gameOverPopup;
 
   constructor() {
     this.board = new Board(this);
     this.gameTimer = new GameTimer(() => this.update(), UPDATE_INTERVAL);
-    this.pauseMenu = document.querySelector(".pause-menu");
+    this.pausePopup = document.querySelector("#pause-popup");
+    this.gameOverPopup = document.querySelector("#gameover-popup");
   }
 
   get currentTetromino() {
@@ -22,41 +25,46 @@ class TetrisGame {
     this.tetromino = tetromino;
   }
 
-  startGame() {
-    this.board.spawnTetromino();
-    this.startGameTimer();
-  }
-
-  restartGame() {
-    this.gameTimer.stop();
-    this.board.resetBoard();
-    this.startGame();
-    this.pauseMenu.style.display = "none";
-  }
-
   update() {
     this.currentTetromino?.drop();
   }
 
-  startGameTimer() {
+  togglePause() {
+    this.gameTimer.togglePause();
+    this.pausePopup.style.display = this.gameTimer.isPaused() ? "block" : "none";
+  }
+
+  startGame() {
+    this.isGameOver = false;
+    this.currentTetromino = this.board.spawnTetromino();
     this.gameTimer.start();
   }
 
-  stopGameTimer() {
+  restartGame() {
+    this.pausePopup.style.display = "none";
+    this.gameOverPopup.style.display = "none";
     this.gameTimer.stop();
+    this.board.resetBoard();
+    this.startGame();
   }
 
-  togglePause() {
-    this.gameTimer.togglePause();
-    this.pauseMenu.style.display = this.gameTimer.isPaused() ? "block" : "none";
+  onGameOver() {
+    this.gameOverPopup.style.display = "block";
+    this.isGameOver = true;
+    this.gameTimer.stop();
   }
 }
 
 const game = new TetrisGame();
 
-window.addEventListener("keydown", handleKeyPress);
-
 function handleKeyPress(event) {
+  if (game.isGameOver) {
+    if (event.code === "Space") {
+      game.restartGame();
+    }
+    return;
+  }
+
   if (event.code === "Escape") {
     game.togglePause();
   } else if (event.code === "Comma") {
@@ -77,9 +85,6 @@ function handleKeyPress(event) {
     case "ArrowDown":
       game.currentTetromino?.drop();
       break;
-    case "ArrowUp": // TODO: to remove
-      game.currentTetromino?.up();
-      break;
     case "KeyZ":
       if (!event.repeat) {
         game.currentTetromino?.rotate(-1);
@@ -98,5 +103,16 @@ function handleKeyPress(event) {
   }
 }
 
-document.getElementById("resume-btn").addEventListener("click", () => game.togglePause());
-document.getElementById("restart-btn").addEventListener("click", () => game.restartGame());
+window.addEventListener("keydown", handleKeyPress);
+
+document.querySelector(".resume-btn").addEventListener("click", () => {
+  game.togglePause();
+});
+document.querySelectorAll(".restart-btn").forEach((btn) => {
+  btn.addEventListener("click", () => game.restartGame());
+});
+document.querySelectorAll(".quit-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    window.location.reload();
+  });
+});

@@ -4,6 +4,9 @@ export const BOARD_WIDTH = 10;
 /** Board number of row */
 export const BOARD_HEIGHT = 20;
 
+/** Number of offscreen rows */
+export const INVISIBLE_ROWS = 2;
+
 /** Block size in pixels */
 export const BLOCK_SIZE = 30;
 

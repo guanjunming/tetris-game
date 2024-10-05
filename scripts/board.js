@@ -1,4 +1,4 @@
-import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS } from "./constants.js";
+import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS, INVISIBLE_ROWS } from "./constants.js";
 import Tetromino from "./tetromino.js";
 import RandomGenerator from "./randomGenerator.js";
 import { createBlock } from "./utils.js";
@@ -35,15 +35,18 @@ class Board {
   }
 
   setupPlayfield() {
-    // fill playfield with 0
-    this.playfield = Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(0));
     this.blockContainer = document.querySelector(".block-container");
     this.blockContainer.style.width = `${BOARD_WIDTH * BLOCK_SIZE}px`;
     this.blockContainer.style.height = `${BOARD_HEIGHT * BLOCK_SIZE}px`;
+
+    // fill playfield with 0
+    for (let row = -INVISIBLE_ROWS; row < BOARD_HEIGHT; row++) {
+      this.playfield[row] = Array(BOARD_WIDTH).fill(0);
+    }
   }
 
   resetBoard() {
-    for (let row = 0; row < BOARD_HEIGHT; row++) {
+    for (let row = -INVISIBLE_ROWS; row < BOARD_HEIGHT; row++) {
       for (let col = 0; col < BOARD_WIDTH; col++) {
         this.playfield[row][col] = 0;
       }
@@ -69,17 +72,7 @@ class Board {
     }
   }
 
-  spawnTetromino() {
-    const name = this.randomGenerator.getNextPiece();
-    // I and O start centered, others start center-left
-    const col = BOARD_WIDTH / 2 - Math.ceil(TETROMINOS[name][0].length / 2);
-    const row = 0;
-    const tetromino = new Tetromino(this, name, col, row);
-    tetromino.draw();
-    this.game.currentTetromino = tetromino;
-  }
-
-  checkCollision(tetromino, xOffset, yOffset) {
+  checkCollision(tetromino, xOffset = 0, yOffset = 0) {
     const row = tetromino.position.y + yOffset;
     const col = tetromino.position.x + xOffset;
 
@@ -104,27 +97,47 @@ class Board {
     return false;
   }
 
+  spawnTetromino() {
+    const name = this.randomGenerator.getNextPiece();
+    // I and O start centered, others start center-left
+    const x = BOARD_WIDTH / 2 - Math.ceil(TETROMINOS[name][0].length / 2);
+    const y = 0;
+    const tetromino = new Tetromino(this, name, x, y);
+    // if overlap with stack, spawn one row up
+    if (this.checkCollision(tetromino)) {
+      tetromino.position.y = -1;
+    }
+    tetromino.draw();
+    return tetromino;
+  }
+
   lockTetromino(tetromino) {
     for (let y = 0; y < tetromino.shape.length; y++) {
       for (let x = 0; x < tetromino.shape[y].length; x++) {
         if (tetromino.shape[y][x]) {
           const row = tetromino.position.y + y;
           const col = tetromino.position.x + x;
-          this.playfield[row][col] = tetromino.name;
+          if (this.playfield[row]) {
+            this.playfield[row][col] = tetromino.name;
+          }
         }
       }
     }
 
     this.clearLines();
-    this.spawnTetromino();
-    this.enableGameTimer(true);
+    this.game.currentTetromino = this.spawnTetromino();
+    if (this.checkCollision(this.game.currentTetromino)) {
+      this.game.onGameOver();
+    } else {
+      this.enableGameTimer(true);
+    }
   }
 
   enableGameTimer(enable) {
     if (enable) {
-      this.game.startGameTimer();
+      this.game.gameTimer.start();
     } else {
-      this.game.stopGameTimer();
+      this.game.gameTimer.stop();
     }
   }
 
@@ -136,14 +149,14 @@ class Board {
         linesCleared++;
 
         // shift all rows above down by 1
-        for (let y = row; y > 0; y--) {
+        for (let y = row; y > -INVISIBLE_ROWS; y--) {
           for (let x = 0; x < BOARD_WIDTH; x++) {
             this.playfield[y][x] = this.playfield[y - 1][x];
           }
         }
         // clear top row
         for (let x = 0; x < BOARD_WIDTH; x++) {
-          this.playfield[0][x] = 0;
+          this.playfield[-INVISIBLE_ROWS][x] = 0;
         }
       } else {
         row--;
