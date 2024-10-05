@@ -7,9 +7,22 @@
     <title>Tetris Game</title>
   </head>
   <body>
+    <div class="command-console">
+      <div class="command-history"></div>
+      <input type="text" class="command-input" />
+    </div>
+
     <div class="game-board">
       <div class="board-grid"></div>
       <div class="block-container"></div>
+    </div>
+
+    <div class="pause-menu">
+      <div class="pause-content">
+        <h2>PAUSED</h2>
+        <button id="resume-btn">Resume Game</button>
+        <button id="restart-btn">Start Over</button>
+      </div>
     </div>
 
     <script type="module" src="scripts/app.js"></script>

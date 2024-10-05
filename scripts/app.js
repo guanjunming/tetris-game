@@ -1,13 +1,17 @@
 import Board from "./board.js";
 import { UPDATE_INTERVAL } from "./constants.js";
+import GameTimer from "./gameTimer.js";
 
 class TetrisGame {
   board;
   tetromino;
-  intervalId = 0;
+  gameTimer;
+  pauseMenu;
 
   constructor() {
     this.board = new Board(this);
+    this.gameTimer = new GameTimer(() => this.update(), UPDATE_INTERVAL);
+    this.pauseMenu = document.querySelector(".pause-menu");
   }
 
   get currentTetromino() {
@@ -23,67 +27,76 @@ class TetrisGame {
     this.startGameTimer();
   }
 
+  restartGame() {
+    this.gameTimer.stop();
+    this.board.resetBoard();
+    this.startGame();
+    this.pauseMenu.style.display = "none";
+  }
+
   update() {
     this.currentTetromino?.drop();
   }
 
   startGameTimer() {
-    if (this.intervalId === 0) {
-      this.intervalId = setInterval(() => this.update(), UPDATE_INTERVAL);
-    }
+    this.gameTimer.start();
   }
 
   stopGameTimer() {
-    clearInterval(this.intervalId);
-    this.intervalId = 0;
+    this.gameTimer.stop();
+  }
+
+  togglePause() {
+    this.gameTimer.togglePause();
+    this.pauseMenu.style.display = this.gameTimer.isPaused() ? "block" : "none";
   }
 }
 
 const game = new TetrisGame();
 
-window.addEventListener("keyup", handleKeyPress);
 window.addEventListener("keydown", handleKeyPress);
 
 function handleKeyPress(event) {
-  if (event.type === "keydown") {
-    switch (event.code) {
-      case "ArrowLeft":
-        game.currentTetromino?.move(-1);
-        break;
-      case "ArrowRight":
-        game.currentTetromino?.move(1);
-        break;
-      case "ArrowDown":
-        game.currentTetromino?.drop();
-        break;
-      case "ArrowUp":
-        game.currentTetromino?.up();
-        break;
-      case "KeyZ":
-        if (!event.repeat) {
-          game.currentTetromino?.rotate(-1);
-        }
-        break;
-      case "KeyX":
-        if (!event.repeat) {
-          game.currentTetromino?.rotate(1);
-        }
-        break;
-      case "Space":
-        if (!event.repeat) {
-          game.currentTetromino?.hardDrop();
-        }
-        break;
-    }
-  } else {
-    switch (event.code) {
-      case "KeyT":
-        game.startGame();
-        break;
-      case "KeyR":
-        game.board.resetBoard();
-        game.startGame();
-        break;
-    }
+  if (event.code === "Escape") {
+    game.togglePause();
+  } else if (event.code === "Comma") {
+    game.startGame();
+  }
+
+  if (game.gameTimer.isPaused()) {
+    return;
+  }
+
+  switch (event.code) {
+    case "ArrowLeft":
+      game.currentTetromino?.move(-1);
+      break;
+    case "ArrowRight":
+      game.currentTetromino?.move(1);
+      break;
+    case "ArrowDown":
+      game.currentTetromino?.drop();
+      break;
+    case "ArrowUp": // TODO: to remove
+      game.currentTetromino?.up();
+      break;
+    case "KeyZ":
+      if (!event.repeat) {
+        game.currentTetromino?.rotate(-1);
+      }
+      break;
+    case "KeyX":
+      if (!event.repeat) {
+        game.currentTetromino?.rotate(1);
+      }
+      break;
+    case "Space":
+      if (!event.repeat) {
+        game.currentTetromino?.hardDrop();
+      }
+      break;
   }
 }
+
+document.getElementById("resume-btn").addEventListener("click", () => game.togglePause());
+document.getElementById("restart-btn").addEventListener("click", () => game.restartGame());
