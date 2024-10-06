@@ -36,42 +36,78 @@ body {
 .block {
   position: absolute;
   border-radius: 2px;
-  border-width: 5px;
-  border-style: outset;
+  border: 4px outset;
+  z-index: 10;
 }
 
-.block-outline {
+.block-ghost {
   position: absolute;
-  border: 1px solid black;
+  border-radius: 2px;
+  border: 2px groove;
+  z-index: 5;
 }
 
-/* TODO: set border color */
 .block-I {
   background-color: cyan;
+  border-color: #4effff;
 }
 
 .block-J {
   background-color: blue;
+  border-color: #6161ff;
 }
 
 .block-L {
   background-color: orange;
+  border-color: #ffc04c;
 }
 
 .block-O {
   background-color: yellow;
+  border-color: #ffff48;
 }
 
 .block-S {
-  background-color: green;
+  background-color: #00d000;
+  border-color: #3af43a;
 }
 
 .block-T {
-  background-color: purple;
+  background-color: #b101b1;
+  border-color: #d43dd4;
 }
 
 .block-Z {
   background-color: red;
+  border-color: #ff4e4e;
+}
+
+.ghost-I {
+  border-color: #4effff;
+}
+
+.ghost-J {
+  border-color: #6161ff;
+}
+
+.ghost-L {
+  border-color: #ffc04c;
+}
+
+.ghost-O {
+  border-color: #ffff48;
+}
+
+.ghost-S {
+  border-color: #3af43a;
+}
+
+.ghost-T {
+  border-color: #d43dd4;
+}
+
+.ghost-Z {
+  border-color: #ff4e4e;
 }
 
 .popup-bg {

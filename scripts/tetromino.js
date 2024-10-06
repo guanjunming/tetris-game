@@ -23,7 +23,30 @@ class Tetromino {
     for (let y = 0; y < this.shape.length; y++) {
       for (let x = 0; x < this.shape[y].length; x++) {
         if (this.shape[y][x] && this.position.y + y >= 0) {
-          const block = createBlock(this.name, this.position.y + y, this.position.x + x);
+          const block = createBlock(this.name, this.position.y + y, this.position.x + x, false);
+          this.blocks.push(block);
+          this.board.addBlock(block);
+        }
+      }
+    }
+
+    this.drawGhost();
+  }
+
+  drawGhost() {
+    const ghost = {
+      shape: this.shape,
+      position: { ...this.position },
+    };
+
+    while (!this.board.checkCollision(ghost, 0, 1)) {
+      ghost.position.y += 1;
+    }
+
+    for (let y = 0; y < ghost.shape.length; y++) {
+      for (let x = 0; x < ghost.shape[y].length; x++) {
+        if (ghost.shape[y][x] && ghost.position.y + y >= 0) {
+          const block = createBlock(this.name, ghost.position.y + y, ghost.position.x + x, true);
           this.blocks.push(block);
           this.board.addBlock(block);
         }
