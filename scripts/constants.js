@@ -16,6 +16,9 @@ export const UPDATE_INTERVAL = 1000;
 /** Number of next pieces */
 export const NEXT_PIECE_COUNT = 5;
 
+/** Next piece block size in pixels */
+export const NEXT_BLOCK_SIZE = 20;
+
 /** Lock delay in milliseconds */
 export const LOCK_DELAY = 500;
 

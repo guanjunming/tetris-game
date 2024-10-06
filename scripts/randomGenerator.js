@@ -1,4 +1,4 @@
-import { NEXT_PIECE_COUNT, SEQUENCE } from "./constants.js";
+import { NEXT_BLOCK_SIZE, NEXT_PIECE_COUNT, SEQUENCE, TETROMINOS } from "./constants.js";
 import { getRandomInt } from "./utils.js";
 
 class RandomGenerator {
@@ -18,11 +18,38 @@ class RandomGenerator {
     if (this.currentSequence.length <= NEXT_PIECE_COUNT) {
       this.generateSequence();
     }
-    return this.currentSequence.shift();
+    const nextPiece = this.currentSequence.shift();
+    this.renderNextPieces();
+    return nextPiece;
   }
 
   resetSequence() {
     this.currentSequence.length = 0;
+  }
+
+  renderNextPieces() {
+    for (let i = 0; i < NEXT_PIECE_COUNT; i++) {
+      const container = document.getElementById("next-piece-" + i);
+      container.innerHTML = "";
+
+      const name = this.currentSequence[i];
+      const shape = TETROMINOS[name];
+
+      for (let y = 0; y < shape.length; y++) {
+        for (let x = 0; x < shape[y].length; x++) {
+          if (shape[y][x]) {
+            const block = document.createElement("div");
+            block.classList.add("block", `block-${name}`);
+            block.style.width = `${NEXT_BLOCK_SIZE}px`;
+            block.style.height = `${NEXT_BLOCK_SIZE}px`;
+            block.style.top = `${y * NEXT_BLOCK_SIZE}px`;
+            // "O" piece shift right by 1 to align better
+            block.style.left = `${(name === "O" ? x + 1 : x) * NEXT_BLOCK_SIZE}px`;
+            container.appendChild(block);
+          }
+        }
+      }
+    }
   }
 }
 

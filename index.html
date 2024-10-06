@@ -7,15 +7,27 @@
     <title>Tetris Game</title>
   </head>
   <body>
-    <div class="command-console">
-      <div class="command-history"></div>
-      <input type="text" class="command-input" />
-    </div>
-
-    <div class="game-board">
-      <div class="board-grid"></div>
-      <div class="block-container"></div>
-    </div>
+    <main>
+      <div class="game">
+        <div class="hold"></div>
+        <div class="game-board">
+          <div class="board-grid"></div>
+          <div class="block-container"></div>
+        </div>
+        <div class="next">
+          <div class="next-wrapper">
+            <h3>NEXT</h3>
+            <div class="next-content">
+              <div class="next-piece" id="next-piece-0"></div>
+              <div class="next-piece" id="next-piece-1"></div>
+              <div class="next-piece" id="next-piece-2"></div>
+              <div class="next-piece" id="next-piece-3"></div>
+              <div class="next-piece" id="next-piece-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <div class="popup-bg" id="pause-popup">
       <div class="popup-content">
@@ -33,6 +45,11 @@
         <button class="quit-btn">QUIT</button>
       </div>
     </div>
+
+    <!-- <div class="command-console">
+      <div class="command-history"></div>
+      <input type="text" class="command-input" />
+    </div> -->
 
     <script type="module" src="scripts/app.js"></script>
   </body>
