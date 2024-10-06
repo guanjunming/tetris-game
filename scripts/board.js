@@ -125,11 +125,16 @@ class Board {
     }
 
     this.clearLines();
-    this.game.currentTetromino = this.spawnTetromino();
-    if (this.checkCollision(this.game.currentTetromino)) {
+
+    const newTetromino = this.spawnTetromino();
+    this.game.currentTetromino = newTetromino;
+
+    // game over if new spawn overlap with stack
+    if (this.checkCollision(newTetromino)) {
       this.game.onGameOver();
     } else {
-      this.enableGameTimer(true);
+      // start lock if new spawn can't drop
+      newTetromino.tryLock();
     }
   }
 
