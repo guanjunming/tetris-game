@@ -7,26 +7,31 @@
     <title>Tetris Game</title>
   </head>
   <body>
-    <main>
-      <div class="game">
-        <div class="hold"></div>
-        <div class="game-board">
-          <div class="board-grid"></div>
-          <div class="block-container"></div>
-        </div>
-        <div class="next">
-          <div class="next-wrapper">
-            <h3>NEXT</h3>
-            <div class="next-content">
-              <div class="next-piece" id="next-piece-0"></div>
-              <div class="next-piece" id="next-piece-1"></div>
-              <div class="next-piece" id="next-piece-2"></div>
-              <div class="next-piece" id="next-piece-3"></div>
-              <div class="next-piece" id="next-piece-4"></div>
-            </div>
+    <main class="game">
+      <section class="hold">
+        <div class="hold-wrapper">
+          <h3 class="side-title">HOLD</h3>
+          <div class="hold-content">
+            <div class="hold-piece" id="hold-piece"></div>
           </div>
         </div>
-      </div>
+      </section>
+      <section class="game-board">
+        <div class="board-grid"></div>
+        <div class="block-container"></div>
+      </section>
+      <section class="next">
+        <div class="next-wrapper">
+          <h3 class="side-title">NEXT</h3>
+          <div class="next-content">
+            <div class="next-piece" id="next-piece-0"></div>
+            <div class="next-piece" id="next-piece-1"></div>
+            <div class="next-piece" id="next-piece-2"></div>
+            <div class="next-piece" id="next-piece-3"></div>
+            <div class="next-piece" id="next-piece-4"></div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <div class="popup-bg" id="pause-popup">

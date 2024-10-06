@@ -15,7 +15,7 @@ body {
 
 .game {
   display: grid;
-  grid-template-columns: 150px auto auto;
+  grid-template-columns: repeat(3, auto);
   gap: 10px;
 }
 
@@ -118,14 +118,15 @@ body {
   border-color: #ff4e4e;
 }
 
-.next-wrapper {
+.next-wrapper,
+.hold-wrapper {
   padding: 10px;
   text-align: center;
   border: 5px solid white;
   border-radius: 4px;
 }
 
-.next h3 {
+.side-title {
   margin-top: 0;
   margin-bottom: 5px;
   color: white;
@@ -144,6 +145,21 @@ body {
   width: 100px;
   height: 70px;
   position: relative;
+}
+
+.hold-content {
+  background-color: #121212;
+  padding-left: 15px;
+  padding-top: 20px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.hold-piece {
+  width: 100px;
+  height: 80px;
+  position: relative;
+  /* border: 2px solid red; */
 }
 
 .popup-bg {

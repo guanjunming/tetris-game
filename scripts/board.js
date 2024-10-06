@@ -2,25 +2,27 @@ import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS, INVISIBLE_ROWS } fro
 import Tetromino from "./tetromino.js";
 import RandomGenerator from "./randomGenerator.js";
 import { createBlock } from "./utils.js";
+import HoldBox from "./holdBox.js";
 
 class Board {
   game;
   randomGenerator;
-  boardGrid;
+  holdBox;
   blockContainer;
   playfield = [];
 
   constructor(game) {
     this.game = game;
     this.randomGenerator = new RandomGenerator();
+    this.holdBox = new HoldBox();
     this.createGrid();
     this.setupPlayfield();
   }
 
   createGrid() {
-    this.boardGrid = document.querySelector(".board-grid");
-    this.boardGrid.style.gridTemplateColumns = `repeat(${BOARD_WIDTH}, ${BLOCK_SIZE}px)`;
-    this.boardGrid.style.gridTemplateRows = `repeat(${BOARD_HEIGHT}, ${BLOCK_SIZE}px)`;
+    const boardGrid = document.querySelector(".board-grid");
+    boardGrid.style.gridTemplateColumns = `repeat(${BOARD_WIDTH}, ${BLOCK_SIZE}px)`;
+    boardGrid.style.gridTemplateRows = `repeat(${BOARD_HEIGHT}, ${BLOCK_SIZE}px)`;
 
     for (let row = 0; row < BOARD_HEIGHT; row++) {
       for (let col = 0; col < BOARD_WIDTH; col++) {
@@ -29,7 +31,7 @@ class Board {
         block.style.width = `${BLOCK_SIZE}px`;
         block.style.height = `${BLOCK_SIZE}px`;
         block.setAttribute("id", `x${col}-y${row}`);
-        this.boardGrid.appendChild(block);
+        boardGrid.appendChild(block);
       }
     }
   }
@@ -53,6 +55,7 @@ class Board {
     }
     this.blockContainer.innerHTML = "";
     this.randomGenerator.resetSequence();
+    this.holdBox.clear();
   }
 
   addBlock(block) {
@@ -97,18 +100,32 @@ class Board {
     return false;
   }
 
-  spawnTetromino() {
-    const name = this.randomGenerator.getNextPiece();
+  spawnTetromino(tetrominoName = null, isHoldPiece = false) {
+    const name =
+      isHoldPiece && tetrominoName !== null ? tetrominoName : this.randomGenerator.getNextPiece();
+
     // I and O start centered, others start center-left
     const x = BOARD_WIDTH / 2 - Math.ceil(TETROMINOS[name][0].length / 2);
     const y = 0;
-    const tetromino = new Tetromino(this, name, x, y);
+    const tetromino = new Tetromino(this, name, x, y, isHoldPiece);
+
     // if overlap with stack, spawn one row up
     if (this.checkCollision(tetromino)) {
       tetromino.position.y = -1;
     }
     tetromino.draw();
+
     return tetromino;
+  }
+
+  onNewTetrominoSpawn(newTetromino) {
+    // game over if new spawn overlap with stack
+    if (this.checkCollision(newTetromino)) {
+      this.game.onGameOver();
+    } else {
+      // start lock if new spawn can't drop
+      newTetromino.tryLock();
+    }
   }
 
   lockTetromino(tetromino) {
@@ -128,14 +145,7 @@ class Board {
 
     const newTetromino = this.spawnTetromino();
     this.game.currentTetromino = newTetromino;
-
-    // game over if new spawn overlap with stack
-    if (this.checkCollision(newTetromino)) {
-      this.game.onGameOver();
-    } else {
-      // start lock if new spawn can't drop
-      newTetromino.tryLock();
-    }
+    this.onNewTetrominoSpawn(newTetromino);
   }
 
   enableGameTimer(enable) {
@@ -171,6 +181,15 @@ class Board {
     if (linesCleared > 0) {
       this.renderBoard();
     }
+  }
+
+  holdTetromino(tetromino) {
+    const currHoldPiece = this.holdBox.getHoldPiece();
+    this.holdBox.setHoldPiece(tetromino.name);
+
+    const newTetromino = this.spawnTetromino(currHoldPiece, true);
+    this.game.currentTetromino = newTetromino;
+    this.onNewTetrominoSpawn(newTetromino);
   }
 }
 

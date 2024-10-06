@@ -11,12 +11,14 @@ class Tetromino {
   lockTimerId = 0;
   moveCounter = 0;
   pendingLock = false;
+  isHoldPiece = false;
 
-  constructor(board, name, posX = 0, posY = 0) {
+  constructor(board, name, posX, posY, isHoldPiece) {
     this.board = board;
     this.name = name;
     this.shape = TETROMINOS[name];
     this.position = { x: posX, y: posY };
+    this.isHoldPiece = isHoldPiece;
   }
 
   draw() {
@@ -214,6 +216,18 @@ class Tetromino {
 
     this.redraw();
     this.lock();
+  }
+
+  destroy() {
+    this.clearLockTimer();
+    this.remove();
+  }
+
+  hold() {
+    if (!this.isHoldPiece) {
+      this.board.holdTetromino(this);
+      this.destroy();
+    }
   }
 }
 

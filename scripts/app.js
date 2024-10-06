@@ -100,6 +100,10 @@ function handleKeyPress(event) {
         game.currentTetromino?.hardDrop();
       }
       break;
+    case "KeyC":
+      if (!event.repeat) {
+        game.currentTetromino?.hold();
+      }
   }
 }
 

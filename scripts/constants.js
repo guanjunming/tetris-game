@@ -10,14 +10,14 @@ export const INVISIBLE_ROWS = 2;
 /** Block size in pixels */
 export const BLOCK_SIZE = 30;
 
-/** Game update interval in milliseconds */
-export const UPDATE_INTERVAL = 1000;
-
 /** Number of next pieces */
 export const NEXT_PIECE_COUNT = 5;
 
-/** Next piece block size in pixels */
-export const NEXT_BLOCK_SIZE = 20;
+/** Next and hold piece block size in pixels */
+export const SMALL_BLOCK_SIZE = 20;
+
+/** Game update interval in milliseconds */
+export const UPDATE_INTERVAL = 1000;
 
 /** Lock delay in milliseconds */
 export const LOCK_DELAY = 500;
