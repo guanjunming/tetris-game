@@ -6,13 +6,15 @@ import HoldBox from "./holdBox.js";
 
 class Board {
   game;
+  player;
   randomGenerator;
   holdBox;
   blockContainer;
   playfield = [];
 
-  constructor(game) {
+  constructor(game, player) {
     this.game = game;
+    this.player = player;
     this.randomGenerator = new RandomGenerator();
     this.holdBox = new HoldBox();
     this.createGrid();
@@ -179,6 +181,8 @@ class Board {
     }
 
     if (linesCleared > 0) {
+      this.game.player.updateScore(linesCleared);
+
       this.renderBoard();
     }
   }

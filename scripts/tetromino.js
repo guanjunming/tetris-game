@@ -116,10 +116,14 @@ class Tetromino {
     }
   }
 
-  drop() {
+  drop(playerInput = false) {
     if (!this.board.checkCollision(this, 0, 1)) {
       this.position.y += 1;
       this.redraw();
+
+      if (playerInput) {
+        this.board.player.updateSoftDropScore(1);
+      }
 
       this.clearLockTimer();
       this.moveCounter = 0;
@@ -210,9 +214,13 @@ class Tetromino {
     this.clearLockTimer();
     this.pendingLock = false;
 
+    const origY = this.position.y;
+
     while (!this.board.checkCollision(this, 0, 1)) {
       this.position.y += 1;
     }
+    const cellsDropped = this.position.y - origY;
+    this.board.player.updateHardDropScore(cellsDropped);
 
     this.redraw();
     this.lock();

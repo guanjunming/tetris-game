@@ -1,17 +1,24 @@
 import Board from "./board.js";
 import { UPDATE_INTERVAL } from "./constants.js";
 import GameTimer from "./gameTimer.js";
+import Player from "./player.js";
 
 class TetrisGame {
   board;
   tetromino;
+  player;
+
   gameTimer;
-  pausePopup;
+
   isGameOver = false;
+
+  pausePopup;
   gameOverPopup;
 
   constructor() {
-    this.board = new Board(this);
+    this.player = new Player(this);
+    this.board = new Board(this, this.player);
+
     this.gameTimer = new GameTimer(() => this.update(), UPDATE_INTERVAL);
     this.pausePopup = document.querySelector("#pause-popup");
     this.gameOverPopup = document.querySelector("#gameover-popup");
@@ -38,6 +45,7 @@ class TetrisGame {
     this.isGameOver = false;
     this.currentTetromino = this.board.spawnTetromino();
     this.gameTimer.start();
+    this.player.reset();
   }
 
   restartGame() {
@@ -83,7 +91,7 @@ function handleKeyPress(event) {
       game.currentTetromino?.move(1);
       break;
     case "ArrowDown":
-      game.currentTetromino?.drop();
+      game.currentTetromino?.drop(true);
       break;
     case "KeyZ":
       if (!event.repeat) {

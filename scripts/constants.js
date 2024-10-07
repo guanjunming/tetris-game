@@ -25,6 +25,9 @@ export const LOCK_DELAY = 500;
 /** Number of moves/rotations before lock */
 export const MOVE_LIMIT = 15;
 
+/** Number of lines to clear each level */
+export const LINES_PER_LEVEL = 10;
+
 /** Tetromino generator sequence */
 export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
 
