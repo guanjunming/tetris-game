@@ -1,4 +1,5 @@
 import { LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
+import timeManager from "./time/timeManager.js";
 import { createBlock } from "./utils.js";
 
 class Tetromino {
@@ -8,7 +9,6 @@ class Tetromino {
   position;
   rotation = 0;
   blocks = [];
-  lockTimerId = 0;
   moveCounter = 0;
   pendingLock = false;
   isHoldPiece = false;
@@ -19,6 +19,8 @@ class Tetromino {
     this.shape = TETROMINOS[name];
     this.position = { x: posX, y: posY };
     this.isHoldPiece = isHoldPiece;
+
+    timeManager.initLockTimer(() => this.lock(), LOCK_DELAY);
   }
 
   draw() {
@@ -73,27 +75,14 @@ class Tetromino {
     this.board.lockTetromino(this);
   }
 
-  setLockTimer() {
-    this.lockTimerId = setTimeout(() => {
-      this.lockTimerId = 0;
-      this.lock();
-    }, LOCK_DELAY);
-  }
-
-  clearLockTimer() {
-    if (this.lockTimerId) {
-      clearTimeout(this.lockTimerId);
-      this.lockTimerId = 0;
-    }
-  }
-
   resetLockTimer() {
-    this.clearLockTimer();
+    timeManager.clearLockTimer();
     this.moveCounter++;
     if (this.moveCounter >= MOVE_LIMIT) {
       this.lock();
     } else {
-      this.setLockTimer();
+      timeManager.stopGameTimer();
+      timeManager.startLockTimer();
     }
   }
 
@@ -102,14 +91,14 @@ class Tetromino {
       // start lock timer if not already started
       if (!this.pendingLock) {
         this.pendingLock = true;
-        this.setLockTimer();
-        this.board.enableGameTimer(false);
+        timeManager.stopGameTimer();
+        timeManager.startLockTimer();
       } else {
         this.resetLockTimer();
       }
     } else {
-      this.clearLockTimer();
-      this.board.enableGameTimer(true);
+      timeManager.clearLockTimer();
+      timeManager.startGameTimer();
       if (this.pendingLock) {
         this.moveCounter++;
       }
@@ -125,15 +114,15 @@ class Tetromino {
         this.board.player.updateSoftDropScore(1);
       }
 
-      this.clearLockTimer();
+      timeManager.clearLockTimer();
       this.moveCounter = 0;
       this.pendingLock = false;
 
       // cannot drop anymore, start lock timer
       if (this.board.checkCollision(this, 0, 1)) {
         this.pendingLock = true;
-        this.setLockTimer();
-        this.board.enableGameTimer(false);
+        timeManager.stopGameTimer();
+        timeManager.startLockTimer();
       }
     }
   }
@@ -210,8 +199,9 @@ class Tetromino {
   }
 
   hardDrop() {
-    this.board.enableGameTimer(false);
-    this.clearLockTimer();
+    //timeManager.stopGameTimer();
+    //timeManager.clearLockTimer();
+    timeManager.clearCurrentTimer();
     this.pendingLock = false;
 
     const origY = this.position.y;
@@ -227,7 +217,7 @@ class Tetromino {
   }
 
   destroy() {
-    this.clearLockTimer();
+    timeManager.clearLockTimer();
     this.remove();
   }
 

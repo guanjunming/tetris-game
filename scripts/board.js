@@ -150,14 +150,6 @@ class Board {
     this.onNewTetrominoSpawn(newTetromino);
   }
 
-  enableGameTimer(enable) {
-    if (enable) {
-      this.game.gameTimer.start();
-    } else {
-      this.game.gameTimer.stop();
-    }
-  }
-
   clearLines() {
     let linesCleared = 0;
 

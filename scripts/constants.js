@@ -20,7 +20,7 @@ export const SMALL_BLOCK_SIZE = 20;
 export const UPDATE_INTERVAL = 1000;
 
 /** Lock delay in milliseconds */
-export const LOCK_DELAY = 500;
+export const LOCK_DELAY = 1000;
 
 /** Number of moves/rotations before lock */
 export const MOVE_LIMIT = 15;

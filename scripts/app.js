@@ -1,6 +1,6 @@
 import Board from "./board.js";
 import { UPDATE_INTERVAL } from "./constants.js";
-import GameTimer from "./gameTimer.js";
+import timeManager from "./time/timeManager.js";
 import Player from "./player.js";
 
 class TetrisGame {
@@ -14,12 +14,14 @@ class TetrisGame {
 
   pausePopup;
   gameOverPopup;
+  isGameRunning = false;
 
   constructor() {
     this.player = new Player(this);
     this.board = new Board(this, this.player);
 
-    this.gameTimer = new GameTimer(() => this.update(), UPDATE_INTERVAL);
+    timeManager.initGameTimer(() => this.update(), UPDATE_INTERVAL);
+
     this.pausePopup = document.querySelector("#pause-popup");
     this.gameOverPopup = document.querySelector("#gameover-popup");
   }
@@ -37,29 +39,32 @@ class TetrisGame {
   }
 
   togglePause() {
-    this.gameTimer.togglePause();
-    this.pausePopup.style.display = this.gameTimer.isPaused() ? "block" : "none";
+    timeManager.togglePause();
+    this.pausePopup.style.display = timeManager.isPaused ? "block" : "none";
   }
 
   startGame() {
     this.isGameOver = false;
     this.currentTetromino = this.board.spawnTetromino();
-    this.gameTimer.start();
+    timeManager.startGameTimer();
+    this.isGameRunning = true;
     this.player.reset();
   }
 
   restartGame() {
     this.pausePopup.style.display = "none";
     this.gameOverPopup.style.display = "none";
-    this.gameTimer.stop();
+
+    timeManager.clearCurrentTimer();
     this.board.resetBoard();
     this.startGame();
   }
 
   onGameOver() {
-    this.gameOverPopup.style.display = "block";
     this.isGameOver = true;
-    this.gameTimer.stop();
+    this.isGameRunning = false;
+    timeManager.clearCurrentTimer();
+    this.gameOverPopup.style.display = "block";
   }
 }
 
@@ -73,13 +78,20 @@ function handleKeyPress(event) {
     return;
   }
 
-  if (event.code === "Escape") {
-    game.togglePause();
-  } else if (event.code === "Comma") {
+  if (event.code === "Comma") {
     game.startGame();
+    return;
   }
 
-  if (game.gameTimer.isPaused()) {
+  if (!game.isGameRunning) {
+    return;
+  }
+
+  if (event.code === "Escape") {
+    game.togglePause();
+  }
+
+  if (timeManager.isPaused) {
     return;
   }
 

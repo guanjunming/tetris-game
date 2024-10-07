@@ -1,10 +1,9 @@
 class GameTimer {
+  callback;
+  interval;
   timerId = 0;
   lastTimeStamp;
   remaining = 0;
-  callback;
-  interval;
-  paused = false;
 
   constructor(callback, interval) {
     this.callback = callback;
@@ -12,55 +11,63 @@ class GameTimer {
   }
 
   start() {
-    if (this.timerId !== 0) return;
+    if (this.timerId !== 0) {
+      return false;
+    }
 
     this.lastTimeStamp = Date.now();
+    this.remaining = this.interval;
+
     this.timerId = setInterval(() => {
-      //console.log("call callback");
+      console.log("call callback");
       this.lastTimeStamp = Date.now();
+      this.remaining = this.interval;
+
       this.callback();
     }, this.interval);
-    //console.log("start: ", this.timerId);
+    console.log("start game timer: ", this.timerId);
+
+    return true;
   }
 
   stop() {
+    if (this.timerId === 0) {
+      return false;
+    }
+
+    console.log("stop game timer: " + this.timerId);
     clearInterval(this.timerId);
+    //clearTimeout(this.timerId);
     this.timerId = 0;
-    this.paused = false;
-    //console.log("stop");
+
+    return true;
   }
 
   pause() {
-    if (this.timerId === 0) return;
+    if (this.timerId === 0) {
+      return;
+    }
 
-    this.paused = true;
-    this.remaining = this.interval - (Date.now() - this.lastTimeStamp);
+    console.log("pause stop game timer: " + this.timerId);
     clearInterval(this.timerId);
+    //clearTimeout(this.timerId);
     this.timerId = 0;
-    //console.log("pause remaining:", this.remaining);
+    this.remaining -= Date.now() - this.lastTimeStamp;
   }
 
   resume() {
-    //console.log("resume");
-    this.paused = false;
+    if (this.timerId !== 0) {
+      return;
+    }
+
+    this.lastTimeStamp = Date.now();
+
     this.timerId = setTimeout(() => {
       this.timerId = 0;
-      //console.log("call callback");
+      console.log("gametimer resume call callback");
       this.callback();
       this.start();
     }, this.remaining);
-  }
-
-  togglePause() {
-    if (this.paused) {
-      this.resume();
-    } else {
-      this.pause();
-    }
-  }
-
-  isPaused() {
-    return this.paused;
   }
 }
 
