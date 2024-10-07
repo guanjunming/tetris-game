@@ -1,5 +1,5 @@
 import { LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
-import timeManager from "./time/timeManager.js";
+import timeManager from "./timeManager.js";
 import { createBlock } from "./utils.js";
 
 class Tetromino {
@@ -71,17 +71,17 @@ class Tetromino {
   }
 
   lock() {
+    this.pendingLock = false;
     this.moveCounter = 0;
     this.board.lockTetromino(this);
   }
 
   resetLockTimer() {
-    timeManager.clearLockTimer();
+    timeManager.stopTimer();
     this.moveCounter++;
     if (this.moveCounter >= MOVE_LIMIT) {
       this.lock();
     } else {
-      timeManager.stopGameTimer();
       timeManager.startLockTimer();
     }
   }
@@ -91,13 +91,11 @@ class Tetromino {
       // start lock timer if not already started
       if (!this.pendingLock) {
         this.pendingLock = true;
-        timeManager.stopGameTimer();
         timeManager.startLockTimer();
       } else {
         this.resetLockTimer();
       }
     } else {
-      timeManager.clearLockTimer();
       timeManager.startGameTimer();
       if (this.pendingLock) {
         this.moveCounter++;
@@ -114,14 +112,12 @@ class Tetromino {
         this.board.player.updateSoftDropScore(1);
       }
 
-      timeManager.clearLockTimer();
       this.moveCounter = 0;
       this.pendingLock = false;
 
       // cannot drop anymore, start lock timer
       if (this.board.checkCollision(this, 0, 1)) {
         this.pendingLock = true;
-        timeManager.stopGameTimer();
         timeManager.startLockTimer();
       }
     }
@@ -199,9 +195,7 @@ class Tetromino {
   }
 
   hardDrop() {
-    //timeManager.stopGameTimer();
-    //timeManager.clearLockTimer();
-    timeManager.clearCurrentTimer();
+    timeManager.stopTimer();
     this.pendingLock = false;
 
     const origY = this.position.y;
@@ -217,14 +211,14 @@ class Tetromino {
   }
 
   destroy() {
-    timeManager.clearLockTimer();
+    timeManager.stopTimer();
     this.remove();
   }
 
   hold() {
     if (!this.isHoldPiece) {
-      this.board.holdTetromino(this);
       this.destroy();
+      this.board.holdTetromino(this);
     }
   }
 }

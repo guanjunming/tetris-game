@@ -1,6 +1,6 @@
 import Board from "./board.js";
 import { UPDATE_INTERVAL } from "./constants.js";
-import timeManager from "./time/timeManager.js";
+import timeManager from "./timeManager.js";
 import Player from "./player.js";
 
 class TetrisGame {
@@ -55,7 +55,7 @@ class TetrisGame {
     this.pausePopup.style.display = "none";
     this.gameOverPopup.style.display = "none";
 
-    timeManager.clearCurrentTimer();
+    timeManager.resetTimer();
     this.board.resetBoard();
     this.startGame();
   }
@@ -63,7 +63,7 @@ class TetrisGame {
   onGameOver() {
     this.isGameOver = true;
     this.isGameRunning = false;
-    timeManager.clearCurrentTimer();
+    timeManager.resetTimer();
     this.gameOverPopup.style.display = "block";
   }
 }
