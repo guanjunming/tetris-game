@@ -63,6 +63,18 @@ class TetrisGame {
     this.isGameRunning = false;
     timeManager.resetTimer();
     this.gameOverPopup.style.display = "block";
+
+    const score = this.player.score;
+    document.getElementById("gameover-score").textContent = score;
+
+    const highScore = localStorage.getItem("high_score") || 0;
+    if (score > highScore) {
+      localStorage.setItem("high_score", score);
+      document.getElementById("high-score").textContent = score;
+    }
+
+    document.getElementById("gameover-score-title").textContent =
+      score > highScore ? "NEW HIGH SCORE!" : "SCORE";
   }
 
   onLevelUp(level) {
@@ -107,14 +119,14 @@ function handleKeyPress(event) {
     case "ArrowDown":
       game.currentTetromino?.drop(true);
       break;
+    case "ArrowUp":
+      if (!event.repeat) {
+        game.currentTetromino?.rotate(1);
+      }
+      break;
     case "KeyZ":
       if (!event.repeat) {
         game.currentTetromino?.rotate(-1);
-      }
-      break;
-    case "KeyX":
-      if (!event.repeat) {
-        game.currentTetromino?.rotate(1);
       }
       break;
     case "Space":

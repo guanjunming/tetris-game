@@ -13,6 +13,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1,
+h2,
+h3 {
+  margin-top: 0;
+}
+
 .game {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -144,7 +150,6 @@ body {
 }
 
 .side-title {
-  margin-top: 0;
   margin-bottom: 5px;
   color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -206,15 +211,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 250px;
+  width: 280px;
   background-color: white;
   padding: 20px;
   text-align: center;
   border-radius: 10px;
-}
-
-.popup-content h2 {
-  margin-top: 0;
 }
 
 .popup-content button {
@@ -231,6 +232,13 @@ body {
 
 .popup-content button:hover {
   background-color: #0056b3;
+}
+
+.gameover-score-content {
+  background-color: #a7c7e7;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .command-console {

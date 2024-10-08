@@ -4,6 +4,7 @@ class Player {
   scoreElement;
   levelElement;
   linesElement;
+  highScoreElement;
 
   game;
   score = 0;
@@ -17,12 +18,14 @@ class Player {
     this.scoreElement = document.getElementById("score");
     this.levelElement = document.getElementById("level");
     this.linesElement = document.getElementById("lines");
+    this.highScoreElement = document.getElementById("high-score");
   }
 
   updateDisplay() {
     this.scoreElement.textContent = this.score;
     this.levelElement.textContent = this.level;
     this.linesElement.textContent = this.linesCleared;
+    this.highScoreElement.textContent = localStorage.getItem("high_score") || "0";
   }
 
   reset() {
