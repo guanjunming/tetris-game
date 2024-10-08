@@ -4,6 +4,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  --block-I-color: cyan;
+  --block-I-border: #4effff;
+  --block-J-color: blue;
+  --block-J-border: #6161ff;
+  --block-L-color: orange;
+  --block-L-border: #ffc04c;
+  --block-O-color: yellow;
+  --block-O-border: #ffff48;
+  --block-S-color: #00d000;
+  --block-S-border: #3af43a;
+  --block-T-color: #b101b1;
+  --block-T-border: #d43dd4;
+  --block-Z-color: red;
+  --block-Z-border: #ff4e4e;
+}
+
 body {
   background: linear-gradient(0deg, #6139a5 0%, #4570df 100%);
   display: grid;
@@ -23,113 +40,6 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, auto);
   gap: 10px;
-}
-
-.game-board {
-  border: 5px solid white;
-  background-color: #121212;
-  position: relative;
-  border-radius: 4px;
-}
-
-.board-grid {
-  display: grid;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.block-container {
-  position: relative;
-}
-
-.block-grid {
-  border: 1px solid rgba(161, 161, 161, 0.1);
-}
-
-.block {
-  position: absolute;
-  border-radius: 2px;
-  border: 4px outset;
-  z-index: 10;
-}
-
-.block-ghost {
-  position: absolute;
-  border-radius: 2px;
-  border: 2px groove;
-  z-index: 5;
-}
-
-.block-I {
-  background-color: cyan;
-  border-color: #4effff;
-}
-
-.block-J {
-  background-color: blue;
-  border-color: #6161ff;
-}
-
-.block-L {
-  background-color: orange;
-  border-color: #ffc04c;
-}
-
-.block-O {
-  background-color: yellow;
-  border-color: #ffff48;
-}
-
-.block-S {
-  background-color: #00d000;
-  border-color: #3af43a;
-}
-
-.block-T {
-  background-color: #b101b1;
-  border-color: #d43dd4;
-}
-
-.block-Z {
-  background-color: red;
-  border-color: #ff4e4e;
-}
-
-.ghost-I {
-  border-color: #4effff;
-}
-
-.ghost-J {
-  border-color: #6161ff;
-}
-
-.ghost-L {
-  border-color: #ffc04c;
-}
-
-.ghost-O {
-  border-color: #ffff48;
-}
-
-.ghost-S {
-  border-color: #3af43a;
-}
-
-.ghost-T {
-  border-color: #d43dd4;
-}
-
-.ghost-Z {
-  border-color: #ff4e4e;
-}
-
-.glow {
-  background-color: #fff;
-  border-color: #fff;
-  border-style: solid;
-  box-shadow: 0 0 10px 2px #fff, 0 0 5px 1px #fff;
-  z-index: 20;
 }
 
 .left-section {

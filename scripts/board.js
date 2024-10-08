@@ -142,6 +142,7 @@ class Board {
         }
       }
     }
+    this.game.currentTetromino = null;
 
     await this.clearLines();
 
@@ -160,7 +161,7 @@ class Board {
         linesCleared++;
         rowsCleared.push(y);
 
-        // shift all rows above down by 1
+        // shift all rows above down by one
         for (let y = row; y > -INVISIBLE_ROWS; y--) {
           for (let x = 0; x < BOARD_WIDTH; x++) {
             this.playfield[y][x] = this.playfield[y - 1][x];
@@ -175,19 +176,23 @@ class Board {
       }
     }
 
-    for (let i = 0; i < rowsCleared.length; i++) {
-      for (let x = 0; x < BOARD_WIDTH; x++) {
-        const block = document.getElementById(`block-x${x}-y${rowsCleared[i]}`);
-        if (block) {
-          block.classList.add("glow");
-        }
-      }
-    }
-
     if (linesCleared > 0) {
       this.game.player.updateScore(linesCleared);
 
-      await sleep(250);
+      // block input when animation is playing
+      this.game.isPlayingAnimation = true;
+
+      for (let i = 0; i < rowsCleared.length; i++) {
+        for (let x = 0; x < BOARD_WIDTH; x++) {
+          const block = document.getElementById(`block-x${x}-y${rowsCleared[i]}`);
+          if (block) {
+            block.classList.add("glow");
+          }
+        }
+      }
+
+      await sleep(400);
+      this.game.isPlayingAnimation = false;
 
       this.renderBoard();
     }

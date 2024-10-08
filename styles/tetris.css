@@ -1,0 +1,122 @@
+.game-board {
+  border: 5px solid white;
+  background-color: #121212;
+  position: relative;
+  border-radius: 4px;
+}
+
+.board-grid {
+  display: grid;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.block-container {
+  position: relative;
+}
+
+.block-grid {
+  border: 1px solid rgba(161, 161, 161, 0.1);
+}
+
+.block {
+  position: absolute;
+  border-radius: 2px;
+  border: 4px outset;
+  z-index: 10;
+}
+
+.block-ghost {
+  position: absolute;
+  border-radius: 2px;
+  border: 2px groove;
+  z-index: 5;
+}
+
+.block-I {
+  background-color: var(--block-I-color);
+  border-color: var(--block-I-border);
+}
+
+.block-J {
+  background-color: var(--block-J-color);
+  border-color: var(--block-J-border);
+}
+
+.block-L {
+  background-color: var(--block-L-color);
+  border-color: var(--block-L-border);
+}
+
+.block-O {
+  background-color: var(--block-O-color);
+  border-color: var(--block-O-border);
+}
+
+.block-S {
+  background-color: var(--block-S-color);
+  border-color: var(--block-S-border);
+}
+
+.block-T {
+  background-color: var(--block-T-color);
+  border-color: var(--block-T-border);
+}
+
+.block-Z {
+  background-color: var(--block-Z-color);
+  border-color: var(--block-Z-border);
+}
+
+.ghost-I {
+  border-color: var(--block-I-border);
+}
+
+.ghost-J {
+  border-color: var(--block-J-border);
+}
+
+.ghost-L {
+  border-color: var(--block-L-border);
+}
+
+.ghost-O {
+  border-color: var(--block-O-border);
+}
+
+.ghost-S {
+  border-color: var(--block-S-border);
+}
+
+.ghost-T {
+  border-color: var(--block-T-border);
+}
+
+.ghost-Z {
+  border-color: var(--block-Z-border);
+}
+
+.glow {
+  background-color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  box-shadow: 0 0 10px 2px #fff, 0 0 5px 1px #fff;
+  z-index: 20;
+  animation: fadeOut 0.08s ease-in 0.02s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1.8, 0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(2.2, 0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3, 0);
+  }
+}

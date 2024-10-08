@@ -9,6 +9,7 @@ class Tetromino {
   position;
   rotation = 0;
   blocks = [];
+  ghostBlocks = [];
   moveCounter = 0;
   pendingLock = false;
   isHoldPiece = false;
@@ -51,7 +52,7 @@ class Tetromino {
       for (let x = 0; x < ghost.shape[y].length; x++) {
         if (ghost.shape[y][x] && ghost.position.y + y >= 0) {
           const block = createBlock(this.name, ghost.position.y + y, ghost.position.x + x, true);
-          this.blocks.push(block);
+          this.ghostBlocks.push(block);
           this.board.addBlock(block);
         }
       }
@@ -63,6 +64,11 @@ class Tetromino {
       this.blocks[i].remove();
     }
     this.blocks.length = 0;
+
+    for (let i = 0; i < this.ghostBlocks.length; i++) {
+      this.ghostBlocks[i].remove();
+    }
+    this.ghostBlocks.length = 0;
   }
 
   redraw() {
@@ -74,6 +80,11 @@ class Tetromino {
     this.pendingLock = false;
     this.moveCounter = 0;
     this.board.lockTetromino(this);
+
+    for (let i = 0; i < this.ghostBlocks.length; i++) {
+      this.ghostBlocks[i].remove();
+    }
+    this.ghostBlocks.length = 0;
   }
 
   resetLockTimer() {

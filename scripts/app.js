@@ -10,6 +10,7 @@ class TetrisGame {
 
   isGameRunning = false;
   isGameOver = false;
+  isPlayingAnimation = false;
 
   pausePopup;
   gameOverPopup;
@@ -97,7 +98,7 @@ function handleKeyPress(event) {
     return;
   }
 
-  if (!game.isGameRunning) {
+  if (!game.isGameRunning || game.isPlayingAnimation) {
     return;
   }
 
