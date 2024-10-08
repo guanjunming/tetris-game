@@ -118,6 +118,14 @@ body {
   border-color: #ff4e4e;
 }
 
+.glow {
+  background-color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  box-shadow: 0 0 10px 2px #fff, 0 0 5px 1px #fff;
+  z-index: 20;
+}
+
 .left-section {
   display: flex;
   flex-direction: column;

@@ -1,7 +1,7 @@
 import { BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SIZE, TETROMINOS, INVISIBLE_ROWS } from "./constants.js";
 import Tetromino from "./tetromino.js";
 import RandomGenerator from "./randomGenerator.js";
-import { createBlock } from "./utils.js";
+import { createBlock, sleep } from "./utils.js";
 import HoldBox from "./holdBox.js";
 
 class Board {
@@ -130,7 +130,7 @@ class Board {
     }
   }
 
-  lockTetromino(tetromino) {
+  async lockTetromino(tetromino) {
     for (let y = 0; y < tetromino.shape.length; y++) {
       for (let x = 0; x < tetromino.shape[y].length; x++) {
         if (tetromino.shape[y][x]) {
@@ -143,19 +143,22 @@ class Board {
       }
     }
 
-    this.clearLines();
+    await this.clearLines();
 
     const newTetromino = this.spawnTetromino();
     this.game.currentTetromino = newTetromino;
     this.onNewTetrominoSpawn(newTetromino);
   }
 
-  clearLines() {
+  async clearLines() {
     let linesCleared = 0;
+    const rowsCleared = [];
 
-    for (let row = BOARD_HEIGHT - 1; row >= 0; ) {
+    // y keeps track of the original row number
+    for (let row = BOARD_HEIGHT - 1, y = BOARD_HEIGHT - 1; row >= 0; y--) {
       if (this.playfield[row].every((cell) => cell !== 0)) {
         linesCleared++;
+        rowsCleared.push(y);
 
         // shift all rows above down by 1
         for (let y = row; y > -INVISIBLE_ROWS; y--) {
@@ -172,8 +175,19 @@ class Board {
       }
     }
 
+    for (let i = 0; i < rowsCleared.length; i++) {
+      for (let x = 0; x < BOARD_WIDTH; x++) {
+        const block = document.getElementById(`block-x${x}-y${rowsCleared[i]}`);
+        if (block) {
+          block.classList.add("glow");
+        }
+      }
+    }
+
     if (linesCleared > 0) {
       this.game.player.updateScore(linesCleared);
+
+      await sleep(250);
 
       this.renderBoard();
     }

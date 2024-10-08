@@ -11,6 +11,10 @@ export const createBlock = (name, row, col, isGhost) => {
   block.style.height = `${BLOCK_SIZE}px`;
   block.style.top = `${row * BLOCK_SIZE}px`;
   block.style.left = `${col * BLOCK_SIZE}px`;
-  block.setAttribute("id", `x${col}-y${row}`);
+  block.setAttribute("id", `${isGhost ? "ghost" : "block"}-x${col}-y${row}`);
   return block;
+};
+
+export const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
