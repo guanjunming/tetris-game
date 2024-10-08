@@ -1,5 +1,5 @@
 import Board from "./board.js";
-import { UPDATE_INTERVAL } from "./constants.js";
+import { LEVEL_SPEED_INTERVAL } from "./constants.js";
 import timeManager from "./timeManager.js";
 import Player from "./player.js";
 
@@ -8,19 +8,17 @@ class TetrisGame {
   tetromino;
   player;
 
-  gameTimer;
-
+  isGameRunning = false;
   isGameOver = false;
 
   pausePopup;
   gameOverPopup;
-  isGameRunning = false;
 
   constructor() {
     this.player = new Player(this);
     this.board = new Board(this, this.player);
 
-    timeManager.initGameTimer(() => this.update(), UPDATE_INTERVAL);
+    timeManager.initGameTimer(() => this.update(), LEVEL_SPEED_INTERVAL[0]);
 
     this.pausePopup = document.querySelector("#pause-popup");
     this.gameOverPopup = document.querySelector("#gameover-popup");
@@ -65,6 +63,10 @@ class TetrisGame {
     this.isGameRunning = false;
     timeManager.resetTimer();
     this.gameOverPopup.style.display = "block";
+  }
+
+  onLevelUp(level) {
+    timeManager.initGameTimer(() => this.update(), LEVEL_SPEED_INTERVAL[level - 1]);
   }
 }
 

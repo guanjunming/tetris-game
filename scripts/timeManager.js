@@ -1,11 +1,18 @@
+// TimerType enum
+const TimerType = Object.freeze({
+  NONE: 0,
+  GAME: 1,
+  LOCK: 2,
+});
+
 class TimeManager {
-  gameTimerInterval;
+  gameTimerInterval = 0;
   gameTimerCallback;
-  lockTimerDelay;
+  lockTimerDelay = 0;
   lockTimerCallback;
 
   timerId = 0;
-  activeTimer = 0;
+  activeTimer = TimerType.NONE;
   startTimeStamp;
   remaining;
   paused = false;
@@ -19,36 +26,59 @@ class TimeManager {
     this.gameTimerCallback = callback;
   }
 
+  initLockTimer(callback, delay) {
+    this.lockTimerDelay = delay;
+    this.lockTimerCallback = callback;
+  }
+
   startGameTimer() {
-    if (this.activeTimer === 1 && this.timerId) {
+    if (this.activeTimer === TimerType.GAME && this.timerId) {
       return;
     }
 
     this.stopTimer();
 
-    this.activeTimer = 1;
+    this.activeTimer = TimerType.GAME;
     this.startTimeStamp = Date.now();
     this.remaining = this.gameTimerInterval;
 
     this.timerId = setInterval(() => {
       this.startTimeStamp = Date.now();
       this.remaining = this.gameTimerInterval;
-      this.gameTimerCallback();
+      this.gameTimerCallback?.();
     }, this.gameTimerInterval);
+  }
+
+  startLockTimer() {
+    if (this.activeTimer === TimerType.LOCK && this.timerId) {
+      return;
+    }
+
+    this.stopTimer();
+
+    this.activeTimer = TimerType.LOCK;
+    this.startTimeStamp = Date.now();
+    this.remaining = this.lockTimerDelay;
+
+    this.timerId = setTimeout(() => {
+      this.timerId = 0;
+      this.activeTimer = TimerType.NONE;
+      this.lockTimerCallback?.();
+    }, this.lockTimerDelay);
   }
 
   stopTimer() {
     if (this.timerId) {
-      clearTimeout(this.timerId);
+      clearTimeout(this.timerId); // this will also clear interval
       this.timerId = 0;
-      this.activeTimer = 0;
+      this.activeTimer = TimerType.NONE;
     }
   }
 
   pauseTimer() {
     this.paused = true;
 
-    if (this.activeTimer) {
+    if (this.activeTimer !== TimerType.NONE) {
       clearTimeout(this.timerId);
       this.timerId = 0;
       this.remaining -= Date.now() - this.startTimeStamp;
@@ -58,43 +88,20 @@ class TimeManager {
   resumeTimer() {
     this.paused = false;
 
-    if (this.activeTimer) {
+    if (this.activeTimer !== TimerType.NONE) {
       this.startTimeStamp = Date.now();
 
       this.timerId = setTimeout(() => {
         this.timerId = 0;
 
-        if (this.activeTimer === 1) {
+        if (this.activeTimer === TimerType.GAME) {
           this.startGameTimer();
-          this.gameTimerCallback();
-        } else if (this.activeTimer === 2) {
-          this.lockTimerCallback();
+          this.gameTimerCallback?.();
+        } else if (this.activeTimer === TimerType.LOCK) {
+          this.lockTimerCallback?.();
         }
       }, this.remaining);
     }
-  }
-
-  initLockTimer(callback, delay) {
-    this.lockTimerDelay = delay;
-    this.lockTimerCallback = callback;
-  }
-
-  startLockTimer() {
-    if (this.activeTimer === 2 && this.timerId) {
-      return;
-    }
-
-    this.stopTimer();
-
-    this.activeTimer = 2;
-    this.startTimeStamp = Date.now();
-    this.remaining = this.lockTimerDelay;
-
-    this.timerId = setTimeout(() => {
-      this.timerId = 0;
-      this.activeTimer = 0;
-      this.lockTimerCallback();
-    }, this.lockTimerDelay);
   }
 
   togglePause() {

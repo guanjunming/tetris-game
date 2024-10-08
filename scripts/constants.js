@@ -16,17 +16,21 @@ export const NEXT_PIECE_COUNT = 5;
 /** Next and hold piece block size in pixels */
 export const SMALL_BLOCK_SIZE = 20;
 
-/** Game update interval in milliseconds */
-export const UPDATE_INTERVAL = 1000;
-
 /** Lock delay in milliseconds */
-export const LOCK_DELAY = 1000;
+export const LOCK_DELAY = 500;
 
 /** Number of moves/rotations before lock */
 export const MOVE_LIMIT = 15;
 
 /** Number of lines to clear each level */
 export const LINES_PER_LEVEL = 10;
+
+/** Time for piece to move down one row in milliseconds.
+ * Based on formula from https://tetris.wiki/Marathon
+ */
+export const LEVEL_SPEED_INTERVAL = [
+  1000, 793, 618, 473, 355, 262, 190, 135, 94, 64, 43, 28, 18, 11, 7, 4, 3, 1, 1, 0,
+];
 
 /** Tetromino generator sequence */
 export const SEQUENCE = ["I", "J", "L", "O", "S", "T", "Z"];
@@ -71,8 +75,8 @@ export const TETROMINOS = {
 };
 
 /**
- * Wall kick translation offset data
- * https://tetris.fandom.com/wiki/SRS
+ * Wall kick translation offset data.
+ * Reference: https://tetris.fandom.com/wiki/SRS
  */
 export const WALL_KICK_OFFSET = {
   JLSTZ: {

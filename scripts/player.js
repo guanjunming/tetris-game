@@ -1,4 +1,4 @@
-import { LINES_PER_LEVEL } from "./constants.js";
+import { LEVEL_SPEED_INTERVAL, LINES_PER_LEVEL } from "./constants.js";
 
 class Player {
   scoreElement;
@@ -62,9 +62,11 @@ class Player {
   }
 
   tryLevelUp() {
-    if (this.linesCleared >= this.linesForNextLevel) {
+    // check whether has reached max level
+    if (this.level < LEVEL_SPEED_INTERVAL.length && this.linesCleared >= this.linesForNextLevel) {
       this.level++;
       this.linesForNextLevel += LINES_PER_LEVEL;
+      this.game.onLevelUp(this.level);
     }
   }
 
