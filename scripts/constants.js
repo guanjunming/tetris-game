@@ -14,7 +14,7 @@ export const BLOCK_SIZE = 32;
 export const NEXT_PIECE_COUNT = 5;
 
 /** Next and hold piece block size in pixels */
-export const SMALL_BLOCK_SIZE = 20;
+export const PREVIEW_BLOCK_SIZE = 24;
 
 /** Lock delay in milliseconds */
 export const LOCK_DELAY = 500;

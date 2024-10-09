@@ -1,8 +1,9 @@
 .game-board {
   background-color: var(--board-color);
   position: relative;
-  border: 6px solid var(--frame-color);
-  border-radius: 0 0 2px 2px;
+  border: 5px solid var(--frame-color);
+  border-radius: 0 0 4px 0;
+  filter: drop-shadow(var(--board-shadow));
 }
 
 .board-grid {

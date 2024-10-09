@@ -1,4 +1,4 @@
-import { SMALL_BLOCK_SIZE, TETROMINOS } from "./constants.js";
+import { PREVIEW_BLOCK_SIZE, TETROMINOS } from "./constants.js";
 
 class HoldBox {
   container;
@@ -23,11 +23,11 @@ class HoldBox {
         if (shape[y][x]) {
           const block = document.createElement("div");
           block.classList.add("block", `block-${name}`);
-          block.style.width = `${SMALL_BLOCK_SIZE}px`;
-          block.style.height = `${SMALL_BLOCK_SIZE}px`;
-          block.style.top = `${y * SMALL_BLOCK_SIZE}px`;
+          block.style.width = `${PREVIEW_BLOCK_SIZE}px`;
+          block.style.height = `${PREVIEW_BLOCK_SIZE}px`;
+          block.style.top = `${y * PREVIEW_BLOCK_SIZE}px`;
           // "O" piece shift right by 1 to align better
-          block.style.left = `${(name === "O" ? x + 1 : x) * SMALL_BLOCK_SIZE}px`;
+          block.style.left = `${(name === "O" ? x + 1 : x) * PREVIEW_BLOCK_SIZE}px`;
           this.container.appendChild(block);
         }
       }
