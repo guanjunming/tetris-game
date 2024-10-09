@@ -57,3 +57,4 @@ Install the [Live Server](https://marketplace.visualstudio.com/items?itemName=ri
 
 - Game information from [Tetris.wiki](https://tetris.wiki/Tetris.wiki) and [Fandom Tetris wiki](https://tetris.fandom.com/wiki/Tetris_Wiki).
 - Sound effects from [Freesound](https://freesound.org/).
+- Creating [notched corners](https://css-tricks.com/notched-boxes/) and [using shadow with clip-path together](https://css-tricks.com/using-box-shadows-and-clip-path-together/) from CSS-TRICKS.

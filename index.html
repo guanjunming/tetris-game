@@ -6,8 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/block.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
     <title>Block Game</title>
   </head>
   <body>
@@ -57,24 +58,29 @@
       </section>
     </main>
 
-    <div class="popup-bg" id="pause-popup">
-      <div class="popup-content">
+    <div class="modal-overlay" id="pause-popup">
+      <div class="modal-bg">
         <h2>PAUSED</h2>
-        <button class="resume-btn">RESUME</button>
-        <button class="restart-btn">RESTART</button>
-        <button class="quit-btn">QUIT</button>
+        <div class="button-layout-group">
+          <button class="btn resume-btn">RESUME</button>
+          <button class="btn restart-btn">RESTART</button>
+          <button class="btn instructions-btn">HOW TO PLAY</button>
+          <button class="btn quit-btn">QUIT</button>
+        </div>
       </div>
     </div>
 
-    <div class="popup-bg" id="gameover-popup">
-      <div class="popup-content">
+    <div class="modal-overlay" id="gameover-popup">
+      <div class="modal-bg">
         <h2>GAME OVER</h2>
         <div class="gameover-score-content">
           <h3 id="gameover-score-title">SCORE</h3>
           <div class="score-content" id="gameover-score"></div>
         </div>
-        <button class="restart-btn">RESTART</button>
-        <button class="quit-btn">QUIT</button>
+        <div class="button-layout-group">
+          <button class="btn restart-btn">RESTART</button>
+          <button class="btn quit-btn">QUIT</button>
+        </div>
       </div>
     </div>
 
