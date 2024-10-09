@@ -3,6 +3,7 @@ import Tetromino from "./tetromino.js";
 import RandomGenerator from "./randomGenerator.js";
 import { createBlock, sleep } from "./utils.js";
 import HoldBox from "./holdBox.js";
+import soundManager from "./soundManager.js";
 
 class Board {
   game;
@@ -177,6 +178,8 @@ class Board {
     }
 
     if (linesCleared > 0) {
+      soundManager.playSoundEffect("line_" + linesCleared, 0.5);
+
       this.game.player.updateScore(linesCleared);
 
       // block input when animation is playing
@@ -195,6 +198,7 @@ class Board {
       this.game.isPlayingAnimation = false;
 
       this.renderBoard();
+      soundManager.playSoundEffect("drop_down", 0.5);
     }
   }
 

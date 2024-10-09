@@ -1,4 +1,5 @@
 import { LOCK_DELAY, MOVE_LIMIT, TETROMINOS, WALL_KICK_OFFSET } from "./constants.js";
+import soundManager from "./soundManager.js";
 import timeManager from "./timeManager.js";
 import { createBlock } from "./utils.js";
 
@@ -85,6 +86,8 @@ class Tetromino {
       this.ghostBlocks[i].remove();
     }
     this.ghostBlocks.length = 0;
+
+    soundManager.playSoundEffect("soft_drop");
   }
 
   resetLockTimer() {
@@ -121,6 +124,7 @@ class Tetromino {
 
       if (playerInput) {
         this.board.player.updateSoftDropScore(1);
+        soundManager.playSoundEffect("move");
       }
 
       this.moveCounter = 0;
@@ -139,6 +143,7 @@ class Tetromino {
       this.position.x += xOffset;
       this.redraw();
       this.tryLock();
+      soundManager.playSoundEffect("move");
     }
   }
 
@@ -200,6 +205,7 @@ class Tetromino {
     if (rotated) {
       this.redraw();
       this.tryLock();
+      soundManager.playSoundEffect("rotate");
     } else {
       this.shape = originalShape;
     }
@@ -219,6 +225,7 @@ class Tetromino {
 
     this.redraw();
     this.lock();
+    soundManager.playSoundEffect("hard_drop", 0.5);
   }
 
   destroy() {
@@ -230,6 +237,7 @@ class Tetromino {
     if (!this.isHoldPiece) {
       this.destroy();
       this.board.holdTetromino(this);
+      soundManager.playSoundEffect("hold");
     }
   }
 }
