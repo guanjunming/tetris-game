@@ -8,7 +8,7 @@ export const BOARD_HEIGHT = 20;
 export const INVISIBLE_ROWS = 2;
 
 /** Block size in pixels */
-export const BLOCK_SIZE = 30;
+export const BLOCK_SIZE = 32;
 
 /** Number of next pieces */
 export const NEXT_PIECE_COUNT = 5;

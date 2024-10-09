@@ -1,8 +1,8 @@
 .game-board {
-  border: 5px solid white;
-  background-color: #121212;
+  background-color: var(--board-color);
   position: relative;
-  border-radius: 4px;
+  border: 6px solid var(--frame-color);
+  border-radius: 0 0 2px 2px;
 }
 
 .board-grid {
@@ -17,7 +17,7 @@
 }
 
 .block-grid {
-  border: 1px solid rgba(161, 161, 161, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .block {
@@ -70,31 +70,31 @@
 }
 
 .ghost-I {
-  border-color: var(--block-I-border);
+  border-color: var(--block-I-color);
 }
 
 .ghost-J {
-  border-color: var(--block-J-border);
+  border-color: var(--block-J-color);
 }
 
 .ghost-L {
-  border-color: var(--block-L-border);
+  border-color: var(--block-L-color);
 }
 
 .ghost-O {
-  border-color: var(--block-O-border);
+  border-color: var(--block-O-color);
 }
 
 .ghost-S {
-  border-color: var(--block-S-border);
+  border-color: var(--block-S-color);
 }
 
 .ghost-T {
-  border-color: var(--block-T-border);
+  border-color: var(--block-T-color);
 }
 
 .ghost-Z {
-  border-color: var(--block-Z-border);
+  border-color: var(--block-Z-color);
 }
 
 .glow {

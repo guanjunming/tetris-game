@@ -3,7 +3,7 @@ import { LEVEL_SPEED_INTERVAL } from "./constants.js";
 import timeManager from "./timeManager.js";
 import Player from "./player.js";
 
-class TetrisGame {
+class GameManager {
   board;
   tetromino;
   player;
@@ -83,7 +83,7 @@ class TetrisGame {
   }
 }
 
-const game = new TetrisGame();
+const game = new GameManager();
 
 function handleKeyPress(event) {
   if (game.isGameOver) {

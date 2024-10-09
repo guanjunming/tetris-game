@@ -5,29 +5,37 @@
 }
 
 :root {
-  --block-I-color: cyan;
-  --block-I-border: #4effff;
-  --block-J-color: blue;
-  --block-J-border: #6161ff;
-  --block-L-color: orange;
-  --block-L-border: #ffc04c;
-  --block-O-color: yellow;
-  --block-O-border: #ffff48;
-  --block-S-color: #00d000;
-  --block-S-border: #3af43a;
-  --block-T-color: #b101b1;
-  --block-T-border: #d43dd4;
-  --block-Z-color: red;
-  --block-Z-border: #ff4e4e;
+  --block-I-color: #4d90f5;
+  --block-I-border: #55c3e1;
+  --block-J-color: #5314d2;
+  --block-J-border: #3768e2;
+  --block-L-color: #fa760a;
+  --block-L-border: #f28b03;
+  --block-O-color: #f9df0b;
+  --block-O-border: #f1ed7e;
+  --block-S-color: #3cbb12;
+  --block-S-border: #8dcb69;
+  --block-T-color: #8407b1;
+  --block-T-border: #9640b6;
+  --block-Z-color: #d61208;
+  --block-Z-border: #da423b;
+
+  --board-color: rgba(0, 0, 0, 0.9);
+  --frame-color: #47d8b5;
 }
 
 body {
+  /* background-image: url(../assets/images/background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+
   background: linear-gradient(0deg, #6139a5 0%, #4570df 100%);
   display: grid;
   place-content: center;
   min-height: 100vh;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Audiowide", sans-serif;
 }
 
 h1,
@@ -39,7 +47,7 @@ h3 {
 .game {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .left-section {
@@ -54,9 +62,9 @@ h3 {
 .score-wrapper {
   padding: 10px;
   text-align: center;
-  border: 5px solid white;
-  border-radius: 4px;
-  background-color: rgba(82, 82, 82, 0.5);
+  /* border: 5px solid var(--frame-color); */
+  /* border-radius: 4px; */
+  background-color: var(--frame-color);
 }
 
 .side-title {
@@ -66,7 +74,7 @@ h3 {
 }
 
 .next-content {
-  background-color: #121212;
+  background-color: var(--board-color);
   padding-left: 20px;
   padding-top: 20px;
   border-radius: 4px;
@@ -80,7 +88,7 @@ h3 {
 }
 
 .hold-content {
-  background-color: #121212;
+  background-color: var(--board-color);
   padding-left: 20px;
   padding-top: 20px;
   border-radius: 4px;
