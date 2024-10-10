@@ -43,6 +43,7 @@ class GameManager {
   togglePause() {
     timeManager.togglePause();
     this.pausePopup.classList.toggle("hidden");
+    soundManager.playMusic(!timeManager.isPaused, false);
   }
 
   startGame() {
@@ -51,6 +52,7 @@ class GameManager {
     timeManager.startGameTimer();
     this.isGameRunning = true;
     this.player.reset();
+    soundManager.playMusic(true);
   }
 
   restartGame() {
@@ -63,7 +65,6 @@ class GameManager {
   }
 
   onGameOver() {
-    soundManager.playSoundEffect("game_over", 0.4);
     this.isGameOver = true;
     this.isGameRunning = false;
     timeManager.resetTimer();
@@ -80,6 +81,9 @@ class GameManager {
 
     document.getElementById("gameover-score-title").textContent =
       score > highScore ? "NEW HIGH SCORE!" : "SCORE";
+
+    soundManager.playSoundEffect("game_over", 0.4);
+    soundManager.playMusic(false);
   }
 
   onLevelUp(level) {

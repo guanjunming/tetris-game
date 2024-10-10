@@ -1,5 +1,6 @@
 class SoundManager {
   clips;
+  music;
   soundEnabled = true;
   volumeOnBtn;
   volumeOffBtn;
@@ -13,8 +14,14 @@ class SoundManager {
     this.soundEnabled = localStorage.getItem("sound") === "true";
     this.setSoundSetting(this.soundEnabled);
 
-    this.volumeOnBtn.addEventListener("click", () => this.setSoundSetting(false));
-    this.volumeOffBtn.addEventListener("click", () => this.setSoundSetting(true));
+    this.volumeOnBtn.addEventListener("click", () => {
+      this.playMusic(false);
+      this.setSoundSetting(false);
+    });
+    this.volumeOffBtn.addEventListener("click", () => {
+      this.setSoundSetting(true);
+      this.playMusic(true);
+    });
   }
 
   initAudioClips() {
@@ -31,6 +38,10 @@ class SoundManager {
       line_4: new Audio("../assets/audio/line_4.wav"),
       game_over: new Audio("../assets/audio/game_over.wav"),
     };
+
+    this.music = new Audio("../assets/audio/bgm.mp3");
+    this.music.loop = true;
+    this.music.volume = 0.35;
   }
 
   playSoundEffect(clipName, volume = 1) {
@@ -42,6 +53,22 @@ class SoundManager {
     if (clip) {
       clip.volume = volume;
       clip.play();
+    }
+  }
+
+  playMusic(value, restart = true) {
+    if (!this.soundEnabled) {
+      return;
+    }
+
+    if (restart) {
+      this.music.currentTime = 0;
+    }
+
+    if (value) {
+      this.music.play();
+    } else {
+      this.music.pause();
     }
   }
 
