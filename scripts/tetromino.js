@@ -8,7 +8,7 @@ class Tetromino {
   name;
   shape;
   position;
-  rotation = 0;
+  rotation = 0; // rotation state 0, 1, 2, 3
   blocks = [];
   ghostBlocks = [];
   moveCounter = 0;
@@ -189,7 +189,7 @@ class Tetromino {
 
       for (let i = 0; i < wallKickOffsets.length; i++) {
         let [xOffset, yOffset] = wallKickOffsets[i];
-        // invert the direction of y in dataset as y=0 is at top of grid
+        // invert the direction of y in dataset as y = 0 is at top of grid
         yOffset *= -1;
 
         if (!this.board.checkCollision(this, xOffset, yOffset)) {

@@ -25,6 +25,8 @@
   --board-shadow: 5px 5px 3px rgba(50, 50, 0, 0.5);
   --notch-size: 10px;
 
+  --primary-font: "Nunito", sans-serif;
+  --secondary-font: "Audiowide", sans-serif;
   --dark-text: #002d28;
   --light-text: #fff;
 }
@@ -35,7 +37,7 @@ body {
   place-content: center;
   min-height: 100vh;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--primary-font);
   font-weight: 600;
   color: var(--light-text);
 }
@@ -44,7 +46,7 @@ h1,
 h2,
 h3 {
   margin-top: 0;
-  font-family: "Audiowide", sans-serif;
+  font-family: var(--secondary-font);
 }
 
 img {
@@ -143,7 +145,7 @@ button:hover {
   background-color: rgba(18, 18, 18, 0.5);
   color: white;
   min-height: 34px;
-  font-family: "Audiowide", sans-serif;
+  font-family: var(--secondary-font);
   font-size: 1.125rem;
   padding: 5px 2px;
   border-radius: 2px;

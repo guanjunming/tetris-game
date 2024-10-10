@@ -25,23 +25,25 @@ class SoundManager {
   }
 
   initAudioClips() {
+    const path = "../assets/audio/";
+
     this.clips = {
-      move: new Audio("../assets/audio/move.wav"),
-      rotate: new Audio("../assets/audio/rotate.wav"),
-      soft_drop: new Audio("../assets/audio/soft_drop.wav"),
-      hard_drop: new Audio("../assets/audio/hard_drop.wav"),
-      hold: new Audio("../assets/audio/hold.wav"),
-      drop_down: new Audio("../assets/audio/drop_down.wav"),
-      line_1: new Audio("../assets/audio/line_1.wav"),
-      line_2: new Audio("../assets/audio/line_2.wav"),
-      line_3: new Audio("../assets/audio/line_3.wav"),
-      line_4: new Audio("../assets/audio/line_4.wav"),
-      game_over: new Audio("../assets/audio/game_over.wav"),
+      move: new Audio(path + "move.wav"),
+      rotate: new Audio(path + "rotate.wav"),
+      soft_drop: new Audio(path + "soft_drop.wav"),
+      hard_drop: new Audio(path + "hard_drop.wav"),
+      hold: new Audio(path + "hold.wav"),
+      drop_down: new Audio(path + "drop_down.wav"),
+      line_1: new Audio(path + "line_1.wav"),
+      line_2: new Audio(path + "line_2.wav"),
+      line_3: new Audio(path + "line_3.wav"),
+      line_4: new Audio(path + "line_4.wav"),
+      game_over: new Audio(path + "game_over.wav"),
     };
 
-    this.music = new Audio("../assets/audio/bgm.mp3");
+    this.music = new Audio(path + "bgm.mp3");
     this.music.loop = true;
-    this.music.volume = 0.35;
+    this.music.volume = 0.3;
   }
 
   playSoundEffect(clipName, volume = 1) {

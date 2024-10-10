@@ -1,5 +1,5 @@
-import { PREVIEW_BLOCK_SIZE, NEXT_PIECE_COUNT, SEQUENCE, TETROMINOS } from "./constants.js";
-import { getRandomInt } from "./utils.js";
+import { NEXT_PIECE_COUNT, SEQUENCE, TETROMINOS } from "./constants.js";
+import { createPreviewBlock, getRandomInt } from "./utils.js";
 
 class RandomGenerator {
   currentSequence = [];
@@ -38,13 +38,7 @@ class RandomGenerator {
       for (let y = 0; y < shape.length; y++) {
         for (let x = 0; x < shape[y].length; x++) {
           if (shape[y][x]) {
-            const block = document.createElement("div");
-            block.classList.add("block", `block-${name}`);
-            block.style.width = `${PREVIEW_BLOCK_SIZE}px`;
-            block.style.height = `${PREVIEW_BLOCK_SIZE}px`;
-            block.style.top = `${y * PREVIEW_BLOCK_SIZE}px`;
-            // "O" piece shift right by 1 to align better
-            block.style.left = `${(name === "O" ? x + 1 : x) * PREVIEW_BLOCK_SIZE}px`;
+            const block = createPreviewBlock(name, y, x);
             container.appendChild(block);
           }
         }

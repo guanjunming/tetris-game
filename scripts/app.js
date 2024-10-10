@@ -105,11 +105,6 @@ function handleKeyPress(event) {
     return;
   }
 
-  if (event.code === "Comma") {
-    game.startGame();
-    return;
-  }
-
   if (!game.isGameRunning || game.isPlayingAnimation) {
     return;
   }
