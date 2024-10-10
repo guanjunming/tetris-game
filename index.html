@@ -64,7 +64,7 @@
 
     <div class="modal-overlay show" id="home-popup">
       <div class="home-modal-bg">
-        <h2 class="modal-title">HOW TO PLAY</h2>
+        <h2 class="modal-title modal-title-white">HOW TO PLAY</h2>
         <ul class="info">
           <li>Maneuver the falling blocks by moving and rotating them using the keyboard.</li>
           <li>
@@ -76,14 +76,20 @@
           </li>
           <li>Stack the blocks too high and the game is over!</li>
         </ul>
-        <div class="controls">Controls Here</div>
+        <div class="controls">
+          <img
+            src="assets/images/controls.png"
+            alt="Keyboard controls: Left Arrow to move left, Right Arrow to move right,  Up Arrow to rotate right, 
+            Z to rotate left, Down Arrow to soft drop, Spacebar to hard drop, C to hold and Esc to pause the game."
+          />
+        </div>
         <div class="btn-horizontal-layout-group">
           <button class="btn play-btn">PLAY</button>
         </div>
       </div>
     </div>
 
-    <div class="modal-overlay" id="pause-popup">
+    <div class="modal-overlay model-mask" id="pause-popup">
       <div class="modal-bg">
         <h2 class="modal-title">PAUSED</h2>
         <div class="btn-vertical-layout-group">
@@ -95,7 +101,7 @@
       </div>
     </div>
 
-    <div class="modal-overlay" id="gameover-popup">
+    <div class="modal-overlay model-mask" id="gameover-popup">
       <div class="modal-bg">
         <h2 class="modal-title">GAME OVER</h2>
         <div class="gameover-score-content">

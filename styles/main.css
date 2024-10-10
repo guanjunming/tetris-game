@@ -24,21 +24,18 @@
   --frame-color: #47d8b5;
   --board-shadow: 5px 5px 3px rgba(50, 50, 0, 0.5);
   --notch-size: 10px;
+
+  --title-color: #002d28;
 }
 
 body {
-  /* background-image: url(../assets/images/background.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-
   background: linear-gradient(0deg, #008c8d 0%, #02136d 100%);
   display: grid;
   place-content: center;
   min-height: 100vh;
   margin: 0;
   font-family: "Nunito", sans-serif;
-  color: #002d28;
+  color: white;
 }
 
 h1,
@@ -48,9 +45,14 @@ h3 {
   font-family: "Audiowide", sans-serif;
 }
 
+img {
+  max-width: 100%;
+}
+
 button {
   font-family: inherit;
   font-weight: inherit;
+  color: inherit;
 }
 
 button:focus {
@@ -156,6 +158,7 @@ button:hover {
   margin-bottom: 5px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 1.125rem;
+  color: var(--title-color);
 }
 
 .preview-piece {

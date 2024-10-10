@@ -5,8 +5,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.4);
   z-index: 50;
+}
+
+.model-mask {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-bg {
@@ -15,15 +18,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
-  background: linear-gradient(0deg, #14fafa 0%, #c1fdd7 100%);
+  background: linear-gradient(0deg, #a9def9 0%, #fcf6bd 100%);
   padding: 20px;
   border-radius: 14px;
-  border: 5px outset #c1fdd7;
+  border: 5px outset #fcf6bd;
 }
 
 .modal-title {
   text-align: center;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  color: var(--title-color);
+}
+
+.modal-title-white {
+  color: white;
 }
 
 .home-modal-bg {
@@ -31,11 +39,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  background: linear-gradient(0deg, #14fafa 0%, #c1fdd7 100%);
+  width: 620px;
+  background: linear-gradient(0deg, #32a5b9 0%, #12679a 100%);
   padding: 20px;
   border-radius: 14px;
-  border: 5px outset #c1fdd7;
+  border: 5px outset #32a5b9;
 }
 
 .info {
@@ -45,9 +53,9 @@
 
 .info li {
   position: relative;
-  padding-left: 24px;
+  padding-left: 28px;
   margin-bottom: 10px;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -86,7 +94,6 @@
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  /* border: 1px solid red; */
 }
 
 .btn-horizontal-layout-group {
@@ -94,17 +101,15 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
-  /* border: 1px solid red; */
 }
 
 .btn {
   width: 80%;
   padding: 10px 20px;
   background-color: #007bff;
-  color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 1.25rem;
   font-weight: 700;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
@@ -113,14 +118,23 @@
 .play-btn {
   width: 170px;
   background-color: #ffbb00;
+  font-size: 1.5rem;
 }
 
-.resume-btn {
+.resume-btn,
+.restart-btn {
   background-color: #4ca13b;
 }
 
 .quit-btn {
   background-color: #d60800;
+}
+
+.controls {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .gameover-score-content {
