@@ -18,6 +18,7 @@ class SoundManager {
       line_2: new Audio("../assets/audio/line_2.wav"),
       line_3: new Audio("../assets/audio/line_3.wav"),
       line_4: new Audio("../assets/audio/line_4.wav"),
+      game_over: new Audio("../assets/audio/game_over.wav"),
     };
   }
 
