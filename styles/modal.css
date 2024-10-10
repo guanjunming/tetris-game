@@ -26,7 +26,7 @@
 .modal-title {
   text-align: center;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  color: var(--title-color);
+  color: var(--dark-text);
 }
 
 .modal-title-white {
@@ -34,14 +34,8 @@
 }
 
 .home-modal-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 620px;
   background: linear-gradient(0deg, #32a5b9 0%, #12679a 100%);
-  padding: 20px;
-  border-radius: 14px;
   border: 5px outset #32a5b9;
 }
 
@@ -55,7 +49,6 @@
   padding-left: 28px;
   margin-bottom: 10px;
   font-size: 1.25rem;
-  font-weight: 600;
 }
 
 .info li::before {
@@ -121,8 +114,7 @@
   margin-top: 20px;
 }
 
-.resume-btn,
-.restart-btn {
+.resume-btn {
   background-color: #4ca13b;
 }
 
@@ -132,14 +124,13 @@
 
 .done-btn {
   width: 170px;
+  margin-top: 20px;
 }
 
 .controls {
   background-color: white;
   padding: 10px 20px;
   border-radius: 20px;
-  /* margin-bottom: 20px; */
-  border: 2px solid red;
 }
 
 .gameover-score-content {
@@ -150,28 +141,44 @@
 }
 
 .info-modal-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 800px;
-  background: linear-gradient(0deg, #a9def9 0%, #fcf6bd 100%);
-  /* background: linear-gradient(0deg, #32a5b9 0%, #12679a 100%); */
-  padding: 20px;
-  border-radius: 14px;
-  border: 5px outset #fcf6bd;
 }
 
 .info-content {
   display: grid;
-  grid-template-columns: auto 200px;
-  /* gap: 10px; */
-  /* margin-bottom: 20px; */
-  /* align-items: center; */
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
 }
 
 .score-info {
-  padding: 20px;
-  border: 2px solid red;
+  padding: 10px;
+  border: 5px solid var(--dark-text);
   border-radius: 20px;
+  width: 260px;
+  color: var(--dark-text);
+}
+
+.score-info h3 {
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.125rem;
+  color: var(--dark-text);
+  text-align: center;
+}
+
+.score-info p {
+  margin: 20px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.score-value {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.score-value:not(:last-of-type) {
+  border-bottom: 2px dashed var(--dark-text);
 }

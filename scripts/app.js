@@ -15,6 +15,7 @@ class GameManager {
 
   pausePopup;
   gameOverPopup;
+  infoPopup;
 
   constructor() {
     this.player = new Player(this);
@@ -24,6 +25,7 @@ class GameManager {
 
     this.pausePopup = document.querySelector("#pause-popup");
     this.gameOverPopup = document.querySelector("#gameover-popup");
+    this.infoPopup = document.querySelector("#info-popup");
   }
 
   get currentTetromino() {
@@ -83,6 +85,10 @@ class GameManager {
   onLevelUp(level) {
     timeManager.initGameTimer(() => this.update(), LEVEL_SPEED_INTERVAL[level - 1]);
   }
+
+  toggleInfoPopup() {
+    this.infoPopup.classList.toggle("hidden");
+  }
 }
 
 const game = new GameManager();
@@ -105,7 +111,12 @@ function handleKeyPress(event) {
   }
 
   if (event.code === "Escape") {
-    game.togglePause();
+    // if info popup is open, close that instead
+    if (!game.infoPopup.classList.contains("hidden")) {
+      game.toggleInfoPopup();
+    } else {
+      game.togglePause();
+    }
   }
 
   if (timeManager.isPaused) {
@@ -161,4 +172,10 @@ document.querySelectorAll(".restart-btn").forEach((btn) => {
 });
 document.querySelectorAll(".quit-btn").forEach((btn) => {
   btn.addEventListener("click", () => window.location.reload());
+});
+document.querySelector(".info-btn").addEventListener("click", () => {
+  game.toggleInfoPopup();
+});
+document.querySelector(".done-btn").addEventListener("click", () => {
+  game.toggleInfoPopup();
 });

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/block.css" />
     <link rel="stylesheet" href="styles/modal.css" />
-    <title>Block Game</title>
+    <title>Tetris Game</title>
   </head>
   <body>
     <main class="game">
@@ -116,7 +116,7 @@
     </main>
 
     <div class="modal-overlay" id="home-popup">
-      <div class="home-modal-bg">
+      <div class="modal-bg home-modal-bg">
         <h2 class="modal-title modal-title-white">HOW TO PLAY</h2>
         <ul class="info">
           <li>Maneuver the falling blocks by moving and rotating them using the keyboard.</li>
@@ -142,33 +142,13 @@
       </div>
     </div>
 
-    <div class="modal-overlay modal-mask hidden" id="info-popup">
-      <div class="info-modal-bg">
-        <h2 class="modal-title">INFORMATION</h2>
-        <div class="info-content">
-          <div class="controls">
-            <img
-              src="assets/images/controls.png"
-              alt="Keyboard controls: Left Arrow to move left, Right Arrow to move right,  Up Arrow to rotate right, 
-              Z to rotate left, Down Arrow to soft drop, Spacebar to hard drop, C to hold and Esc to pause the game."
-            />
-          </div>
-          <div class="score-info"></div>
-        </div>
-
-        <div class="btn-horizontal-layout-group">
-          <button class="btn done-btn">DONE</button>
-        </div>
-      </div>
-    </div>
-
     <div class="modal-overlay modal-mask hidden" id="pause-popup">
       <div class="modal-bg">
         <h2 class="modal-title">PAUSED</h2>
         <div class="btn-vertical-layout-group">
           <button class="btn resume-btn">RESUME</button>
           <button class="btn restart-btn">RESTART</button>
-          <button class="btn instructions-btn">HOW TO PLAY</button>
+          <button class="btn info-btn">HOW TO PLAY</button>
           <button class="btn quit-btn">QUIT</button>
         </div>
       </div>
@@ -184,6 +164,53 @@
         <div class="btn-vertical-layout-group">
           <button class="btn restart-btn">RESTART</button>
           <button class="btn quit-btn">QUIT</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="info-popup">
+      <div class="modal-bg info-modal-bg">
+        <h2 class="modal-title">INFORMATION</h2>
+        <div class="info-content">
+          <div class="controls">
+            <img
+              src="assets/images/controls.png"
+              alt="Keyboard controls: Left Arrow to move left, Right Arrow to move right,  Up Arrow to rotate right, 
+              Z to rotate left, Down Arrow to soft drop, Spacebar to hard drop, C to hold and Esc to pause the game."
+            />
+          </div>
+          <div class="score-info">
+            <h3>SCORE VALUES</h3>
+            <div class="score-value">
+              <span>Soft Drop</span>
+              <span>1 x Distance</span>
+            </div>
+            <div class="score-value">
+              <span>Hard Drop</span>
+              <span>2 x Distance</span>
+            </div>
+            <div class="score-value">
+              <span>Single Line Clear</span>
+              <span>100</span>
+            </div>
+            <div class="score-value">
+              <span>Double Line Clear</span>
+              <span>300</span>
+            </div>
+            <div class="score-value">
+              <span>Triple Line Clear</span>
+              <span>500</span>
+            </div>
+            <div class="score-value">
+              <span>Quadruple Line Clear</span>
+              <span>800</span>
+            </div>
+            <p>*Scores are multiplied by the level.</p>
+          </div>
+        </div>
+
+        <div class="btn-horizontal-layout-group">
+          <button class="btn done-btn">DONE</button>
         </div>
       </div>
     </div>
