@@ -9,10 +9,6 @@
   z-index: 50;
 }
 
-.show {
-  display: block;
-}
-
 .modal-bg {
   position: absolute;
   top: 50%;
@@ -21,29 +17,102 @@
   width: 300px;
   background: linear-gradient(0deg, #14fafa 0%, #c1fdd7 100%);
   padding: 20px;
-  text-align: center;
   border-radius: 14px;
   border: 5px outset #c1fdd7;
+}
+
+.modal-title {
+  text-align: center;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.button-layout-group {
+.home-modal-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background: linear-gradient(0deg, #14fafa 0%, #c1fdd7 100%);
+  padding: 20px;
+  border-radius: 14px;
+  border: 5px outset #c1fdd7;
+}
+
+.info {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.info li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 10px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.info li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 1em;
+  height: 1em;
+  border-radius: 2px;
+}
+
+.info li:nth-child(1)::before {
+  background-color: var(--block-S-color);
+  border: 4px outset var(--block-S-border);
+}
+
+.info li:nth-child(2)::before {
+  background-color: var(--block-L-color);
+  border: 4px outset var(--block-L-border);
+}
+
+.info li:nth-child(3)::before {
+  background-color: var(--block-J-color);
+  border: 4px outset var(--block-J-border);
+}
+
+.info li:nth-child(4)::before {
+  background-color: var(--block-Z-color);
+  border: 4px outset var(--block-Z-border);
+}
+
+.btn-vertical-layout-group {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 80%;
-  margin: 0 auto;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.btn-horizontal-layout-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  /* border: 1px solid red; */
 }
 
 .btn {
+  width: 80%;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 1.125rem;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+}
+
+.play-btn {
+  width: 170px;
+  background-color: #ffbb00;
 }
 
 .resume-btn {
@@ -59,6 +128,10 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.show {
+  display: block;
 }
 
 .command-console {

@@ -144,6 +144,10 @@ function handleKeyPress(event) {
 
 window.addEventListener("keydown", handleKeyPress);
 
+document.querySelector(".play-btn").addEventListener("click", () => {
+  document.querySelector("#home-popup").classList.remove("show");
+  game.startGame();
+});
 document.querySelector(".resume-btn").addEventListener("click", () => {
   game.togglePause();
 });

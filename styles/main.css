@@ -37,7 +37,7 @@ body {
   place-content: center;
   min-height: 100vh;
   margin: 0;
-  font-family: "Audiowide", sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #002d28;
 }
 
@@ -45,10 +45,12 @@ h1,
 h2,
 h3 {
   margin-top: 0;
+  font-family: "Audiowide", sans-serif;
 }
 
 button {
   font-family: inherit;
+  font-weight: inherit;
 }
 
 button:focus {
@@ -138,6 +140,7 @@ button:hover {
   background-color: rgba(18, 18, 18, 0.5);
   color: white;
   min-height: 34px;
+  font-family: "Audiowide", sans-serif;
   font-size: 1.125rem;
   padding: 5px 2px;
   border-radius: 2px;

@@ -6,6 +6,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/block.css" />
     <link rel="stylesheet" href="styles/modal.css" />
@@ -58,10 +62,31 @@
       </section>
     </main>
 
+    <div class="modal-overlay show" id="home-popup">
+      <div class="home-modal-bg">
+        <h2 class="modal-title">HOW TO PLAY</h2>
+        <ul class="info">
+          <li>Maneuver the falling blocks by moving and rotating them using the keyboard.</li>
+          <li>
+            Drop the falling blocks in place to fit them together. To clear a line, fill every
+            square within a single row.
+          </li>
+          <li>
+            Earn points by clearing lines. Clear multiple lines at once to increase your scores.
+          </li>
+          <li>Stack the blocks too high and the game is over!</li>
+        </ul>
+        <div class="controls">Controls Here</div>
+        <div class="btn-horizontal-layout-group">
+          <button class="btn play-btn">PLAY</button>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-overlay" id="pause-popup">
       <div class="modal-bg">
-        <h2>PAUSED</h2>
-        <div class="button-layout-group">
+        <h2 class="modal-title">PAUSED</h2>
+        <div class="btn-vertical-layout-group">
           <button class="btn resume-btn">RESUME</button>
           <button class="btn restart-btn">RESTART</button>
           <button class="btn instructions-btn">HOW TO PLAY</button>
@@ -72,12 +97,12 @@
 
     <div class="modal-overlay" id="gameover-popup">
       <div class="modal-bg">
-        <h2>GAME OVER</h2>
+        <h2 class="modal-title">GAME OVER</h2>
         <div class="gameover-score-content">
           <h3 id="gameover-score-title">SCORE</h3>
           <div class="score-content" id="gameover-score"></div>
         </div>
-        <div class="button-layout-group">
+        <div class="btn-vertical-layout-group">
           <button class="btn restart-btn">RESTART</button>
           <button class="btn quit-btn">QUIT</button>
         </div>
