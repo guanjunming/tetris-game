@@ -11,7 +11,8 @@ class SoundManager {
     this.volumeOnBtn = document.getElementById("volume-on");
     this.volumeOffBtn = document.getElementById("volume-off");
 
-    this.soundEnabled = localStorage.getItem("sound") === "true";
+    const setting = localStorage.getItem("sound");
+    this.soundEnabled = setting !== null ? setting === "true" : true;
     this.setSoundSetting(this.soundEnabled);
 
     this.volumeOnBtn.addEventListener("click", () => {
