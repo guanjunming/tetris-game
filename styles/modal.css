@@ -134,10 +134,17 @@
 }
 
 .gameover-score-content {
-  background-color: #a7c7e7;
+  background-color: var(--frame-color);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.gameover-score-content h3 {
+  color: var(--dark-text);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .info-modal-bg {
