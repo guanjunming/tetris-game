@@ -1,12 +1,23 @@
 class SoundManager {
   clips;
   soundEnabled = true;
+  volumeOnBtn;
+  volumeOffBtn;
 
   constructor() {
-    this.init();
+    this.initAudioClips();
+
+    this.volumeOnBtn = document.getElementById("volume-on");
+    this.volumeOffBtn = document.getElementById("volume-off");
+
+    this.soundEnabled = localStorage.getItem("sound") === "true";
+    this.setSoundSetting(this.soundEnabled);
+
+    this.volumeOnBtn.addEventListener("click", () => this.setSoundSetting(false));
+    this.volumeOffBtn.addEventListener("click", () => this.setSoundSetting(true));
   }
 
-  init() {
+  initAudioClips() {
     this.clips = {
       move: new Audio("../assets/audio/move.wav"),
       rotate: new Audio("../assets/audio/rotate.wav"),
@@ -31,6 +42,19 @@ class SoundManager {
     if (clip) {
       clip.volume = volume;
       clip.play();
+    }
+  }
+
+  setSoundSetting(enabled) {
+    this.soundEnabled = enabled;
+    localStorage.setItem("sound", enabled);
+
+    if (enabled) {
+      this.volumeOnBtn.classList.remove("hidden");
+      this.volumeOffBtn.classList.add("hidden");
+    } else {
+      this.volumeOnBtn.classList.add("hidden");
+      this.volumeOffBtn.classList.remove("hidden");
     }
   }
 }

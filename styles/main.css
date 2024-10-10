@@ -61,7 +61,7 @@ button:focus {
 
 button:focus,
 button:hover {
-  filter: brightness(85%);
+  filter: brightness(120%);
 }
 
 .notch-right-corners {
@@ -95,7 +95,8 @@ button:hover {
   filter: drop-shadow(var(--board-shadow));
 }
 
-.left-section {
+.left-section,
+.right-section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -166,4 +167,23 @@ button:hover {
   height: 72px;
   position: relative;
   /* border: 1px solid red;, */
+}
+
+.settings {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+svg {
+  cursor: pointer;
+}
+
+svg:hover {
+  stroke: var(--frame-color);
+}
+
+.hidden {
+  display: none;
 }

@@ -59,10 +59,63 @@
             </div>
           </div>
         </div>
+
+        <div class="settings">
+          <div>
+            <svg
+              id="volume-on"
+              xmlns="http://www.w3.org/2000/svg"
+              width="45"
+              height="45"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#002d28"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg
+              class="hidden"
+              id="volume-off"
+              xmlns="http://www.w3.org/2000/svg"
+              width="45"
+              height="45"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#002d28"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M11 5L6 9H2v6h4l5 4zM22 9l-6 6M16 9l6 6" />
+            </svg>
+          </div>
+
+          <div id="pause-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="45"
+              height="45"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#002d28"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="10" y1="15" x2="10" y2="9"></line>
+              <line x1="14" y1="15" x2="14" y2="9"></line>
+            </svg>
+          </div>
+        </div>
       </section>
     </main>
 
-    <div class="modal-overlay show" id="home-popup">
+    <div class="modal-overlay" id="home-popup">
       <div class="home-modal-bg">
         <h2 class="modal-title modal-title-white">HOW TO PLAY</h2>
         <ul class="info">
@@ -89,7 +142,27 @@
       </div>
     </div>
 
-    <div class="modal-overlay model-mask" id="pause-popup">
+    <div class="modal-overlay modal-mask hidden" id="info-popup">
+      <div class="info-modal-bg">
+        <h2 class="modal-title">INFORMATION</h2>
+        <div class="info-content">
+          <div class="controls">
+            <img
+              src="assets/images/controls.png"
+              alt="Keyboard controls: Left Arrow to move left, Right Arrow to move right,  Up Arrow to rotate right, 
+              Z to rotate left, Down Arrow to soft drop, Spacebar to hard drop, C to hold and Esc to pause the game."
+            />
+          </div>
+          <div class="score-info"></div>
+        </div>
+
+        <div class="btn-horizontal-layout-group">
+          <button class="btn done-btn">DONE</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay modal-mask hidden" id="pause-popup">
       <div class="modal-bg">
         <h2 class="modal-title">PAUSED</h2>
         <div class="btn-vertical-layout-group">
@@ -101,7 +174,7 @@
       </div>
     </div>
 
-    <div class="modal-overlay model-mask" id="gameover-popup">
+    <div class="modal-overlay modal-mask hidden" id="gameover-popup">
       <div class="modal-bg">
         <h2 class="modal-title">GAME OVER</h2>
         <div class="gameover-score-content">
@@ -114,11 +187,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="command-console">
-      <div class="command-history"></div>
-      <input type="text" class="command-input" />
-    </div> -->
 
     <script type="module" src="scripts/app.js"></script>
   </body>

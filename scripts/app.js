@@ -2,6 +2,7 @@ import Board from "./board.js";
 import { LEVEL_SPEED_INTERVAL } from "./constants.js";
 import timeManager from "./timeManager.js";
 import Player from "./player.js";
+import soundManager from "./soundManager.js";
 
 class GameManager {
   board;
@@ -39,7 +40,7 @@ class GameManager {
 
   togglePause() {
     timeManager.togglePause();
-    this.pausePopup.style.display = timeManager.isPaused ? "block" : "none";
+    this.pausePopup.classList.toggle("hidden");
   }
 
   startGame() {
@@ -51,8 +52,8 @@ class GameManager {
   }
 
   restartGame() {
-    this.pausePopup.style.display = "none";
-    this.gameOverPopup.style.display = "none";
+    this.pausePopup.classList.add("hidden");
+    this.gameOverPopup.classList.add("hidden");
 
     timeManager.resetTimer();
     this.board.resetBoard();
@@ -60,15 +61,16 @@ class GameManager {
   }
 
   onGameOver() {
+    soundManager.playSoundEffect("game_over", 0.4);
     this.isGameOver = true;
     this.isGameRunning = false;
     timeManager.resetTimer();
-    this.gameOverPopup.style.display = "block";
+    this.gameOverPopup.classList.remove("hidden");
 
     const score = this.player.score;
     document.getElementById("gameover-score").textContent = score;
 
-    const highScore = localStorage.getItem("high_score") || 0;
+    const highScore = Number(localStorage.getItem("high_score")) || 0;
     if (score > highScore) {
       localStorage.setItem("high_score", score);
       document.getElementById("high-score").textContent = score;
@@ -145,8 +147,11 @@ function handleKeyPress(event) {
 window.addEventListener("keydown", handleKeyPress);
 
 document.querySelector(".play-btn").addEventListener("click", () => {
-  document.querySelector("#home-popup").classList.remove("show");
+  document.querySelector("#home-popup").classList.add("hidden");
   game.startGame();
+});
+document.querySelector("#pause-btn").addEventListener("click", () => {
+  game.togglePause();
 });
 document.querySelector(".resume-btn").addEventListener("click", () => {
   game.togglePause();
@@ -155,7 +160,5 @@ document.querySelectorAll(".restart-btn").forEach((btn) => {
   btn.addEventListener("click", () => game.restartGame());
 });
 document.querySelectorAll(".quit-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    window.location.reload();
-  });
+  btn.addEventListener("click", () => window.location.reload());
 });

@@ -1,5 +1,4 @@
 .modal-overlay {
-  display: none;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -8,7 +7,7 @@
   z-index: 50;
 }
 
-.model-mask {
+.modal-mask {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -119,6 +118,7 @@
   width: 170px;
   background-color: #ffbb00;
   font-size: 1.5rem;
+  margin-top: 20px;
 }
 
 .resume-btn,
@@ -130,11 +130,16 @@
   background-color: #d60800;
 }
 
+.done-btn {
+  width: 170px;
+}
+
 .controls {
   background-color: white;
   padding: 10px 20px;
   border-radius: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  border: 2px solid red;
 }
 
 .gameover-score-content {
@@ -144,28 +149,29 @@
   margin-bottom: 20px;
 }
 
-.show {
-  display: block;
-}
-
-.command-console {
-  display: none;
+.info-modal-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background: linear-gradient(0deg, #a9def9 0%, #fcf6bd 100%);
+  /* background: linear-gradient(0deg, #32a5b9 0%, #12679a 100%); */
+  padding: 20px;
+  border-radius: 14px;
+  border: 5px outset #fcf6bd;
 }
 
-.command-history {
-  background-color: hsla(0, 0%, 0%, 0.25);
-  color: hsla(0, 0%, 100%, 0.5);
-  height: 120px;
-  overflow-y: auto;
-  text-wrap: wrap;
+.info-content {
+  display: grid;
+  grid-template-columns: auto 200px;
+  /* gap: 10px; */
+  /* margin-bottom: 20px; */
+  /* align-items: center; */
 }
 
-.command-input {
-  background-color: hsla(0, 0%, 0%, 0.25);
-  color: hsla(0, 0%, 100%, 0.5);
-  width: 100%;
+.score-info {
+  padding: 20px;
+  border: 2px solid red;
+  border-radius: 20px;
 }
