@@ -8,7 +8,7 @@ This project is an implementation of the Tetris game built using HTML, CSS, and 
 
 ## Demo
 
-Live demo of the game at: [https://guanjunming.github.io/tetris-game/](https://guanjunming.github.io/tetris-game/)
+Live demo of the game at: [https://tetris-game-sand.vercel.app/](https://tetris-game-sand.vercel.app/)
 
 ## Technologies Used
 
