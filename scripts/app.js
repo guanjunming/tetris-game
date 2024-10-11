@@ -82,7 +82,7 @@ class GameManager {
     document.getElementById("gameover-score-title").textContent =
       score > highScore ? "NEW HIGH SCORE!" : "SCORE";
 
-    soundManager.playSoundEffect("game_over", 0.4);
+    soundManager.playSoundEffect("game_over", 0.3);
     soundManager.playMusic(false);
   }
 

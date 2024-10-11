@@ -178,7 +178,7 @@ class Board {
     }
 
     if (linesCleared > 0) {
-      soundManager.playSoundEffect("line_" + linesCleared, 0.5);
+      soundManager.playSoundEffect("line_" + linesCleared, 0.3);
 
       this.game.player.updateScore(linesCleared);
 
@@ -198,7 +198,7 @@ class Board {
       this.game.isPlayingAnimation = false;
 
       this.renderBoard();
-      soundManager.playSoundEffect("drop_down", 0.5);
+      soundManager.playSoundEffect("drop_down", 0.3);
     }
   }
 

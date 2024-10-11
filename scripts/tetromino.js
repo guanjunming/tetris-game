@@ -225,7 +225,7 @@ class Tetromino {
 
     this.redraw();
     this.lock();
-    soundManager.playSoundEffect("hard_drop", 0.5);
+    soundManager.playSoundEffect("hard_drop", 0.3);
   }
 
   destroy() {
