@@ -178,3 +178,10 @@ document.querySelector(".info-btn").addEventListener("click", () => {
 document.querySelector(".done-btn").addEventListener("click", () => {
   game.toggleInfoPopup();
 });
+
+// pause the game when window lose focus
+window.addEventListener("blur", () => {
+  if (game.isGameRunning && !timeManager.isPaused) {
+    game.togglePause();
+  }
+});
